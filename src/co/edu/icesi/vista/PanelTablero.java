@@ -14,6 +14,9 @@ import java.awt.event.ActionListener;
  */
 public class PanelTablero extends JPanel implements ActionListener{
 
+    public final static int LARGO = 600;
+    public final static int ANCHO = 600;
+
     /**
      * Matriz de botones.
      */
@@ -45,6 +48,7 @@ public class PanelTablero extends JPanel implements ActionListener{
      * @param numeroBotones longitud de la matriz de botones
      */
     private void inicializarPanel(int numeroBotones){
+        setSize(LARGO,ANCHO);
         btnCasillas = new JButton[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++){
             for(int j = 0; j < numeroBotones; j++){
