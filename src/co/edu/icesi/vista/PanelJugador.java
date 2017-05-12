@@ -10,7 +10,6 @@ public class PanelJugador extends InterfazBuscaMinas {
 		setResizable(true);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
-
 	}
 
 	@Override
