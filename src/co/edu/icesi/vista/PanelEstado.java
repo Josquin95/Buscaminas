@@ -3,6 +3,10 @@ package co.edu.icesi.vista;
 import co.edu.icesi.modelo.JuegoFacade;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -110,11 +114,6 @@ public class PanelEstado extends JPanel implements ActionListener {
     private JButton btnCancelar;
 
     /**
-     * Logica del juego
-     */
-    private JuegoFacade modelo;
-
-    /**
      * Conexion con el Jframe
      */
     private InterfazBuscaMinas view;
@@ -123,9 +122,10 @@ public class PanelEstado extends JPanel implements ActionListener {
     // CONSTRUCTOR
     //--------------------------------------------------------------
     public PanelEstado(InterfazBuscaMinas view, JuegoFacade modelo) {
-        this.modelo = modelo;
         this.view = view;
 
+        setLayout(new GridLayout(6,2));
+        setBorder(new TitledBorder("Estado: "));
         inicializarPanel();
     }
 
@@ -141,7 +141,6 @@ public class PanelEstado extends JPanel implements ActionListener {
         crearMarcadores(lbMinas, MINAS, txtMinas, CONTADOR_CERO);
         crearMarcadores(lbBanderas, BANDERAS, txtBanderas, CONTADOR_CERO);
         crearMarcadores(lbDestapadas, DESTAPADAS, txtDestapadas, CONTADOR_CERO);
-
     }
 
     /**
