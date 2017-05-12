@@ -4,7 +4,10 @@ public class PanelMarcador extends InterfazBuscaMinas {
 
 	public PanelMarcador() {
 		// TODO - implement PanelMarcador.PanelMarcador
-		throw new UnsupportedOperationException();
-	}
+}
 
+	@Override
+	public void update() {
+
+	}
 }
