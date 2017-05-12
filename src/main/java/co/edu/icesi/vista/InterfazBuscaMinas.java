@@ -1,8 +1,6 @@
 package co.edu.icesi.vista;
 
 import javax.swing.*;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * @Autor Jose Luis Osorio Quintero

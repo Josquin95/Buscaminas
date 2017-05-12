@@ -1,7 +1,7 @@
 package co.edu.icesi.modelo;
 
 /**
- * @Autor Jose Luis Osorio Quintero
+ * Jose Luis Osorio Quintero
  * Universidad Icesi - 2017 - 05
  * Este es un proyecto academico para la clase de diseno de patrones.
  */
