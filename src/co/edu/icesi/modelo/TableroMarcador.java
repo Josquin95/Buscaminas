@@ -4,7 +4,10 @@ public class TableroMarcador extends Tablero {
 
 	public TableroMarcador() {
 		// TODO - implement TableroMarcador.TableroMarcador
-		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public Tablero clone() {
+		return null;
+	}
 }
