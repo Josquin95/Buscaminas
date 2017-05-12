@@ -3,9 +3,6 @@ package co.edu.icesi.vista;
 import co.edu.icesi.modelo.JuegoFacade;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -48,6 +45,16 @@ public class PanelEstado extends JPanel implements ActionListener {
      * Constante con el contador en cero
      */
     public final static String CONTADOR_CERO = "00";
+
+    /**
+     * Constante de accion del boton iniciar
+     */
+    public final static String INICIAR = "INICIAR";
+
+    /**
+     * Constante  de accion del boton cancelar
+     */
+    public final static String CANCELAR = "CANCELAR";
 
     //-----------------------------------------------------------
     // ATRIBUTOS
@@ -101,7 +108,7 @@ public class PanelEstado extends JPanel implements ActionListener {
     /**
      * Checklist con una lista de dificultad del juego
      */
-    private JList<String> lstDificultad;
+    private JList lstDificultad;
 
     /**
      * Boton que inicia el juego
@@ -141,6 +148,22 @@ public class PanelEstado extends JPanel implements ActionListener {
         crearMarcadores(lbMinas, MINAS, txtMinas, CONTADOR_CERO);
         crearMarcadores(lbBanderas, BANDERAS, txtBanderas, CONTADOR_CERO);
         crearMarcadores(lbDestapadas, DESTAPADAS, txtDestapadas, CONTADOR_CERO);
+
+        lbDificultad = new JLabel("DIFICULTAD");
+        add(lbDificultad);
+
+        lstDificultad = new JList();
+        add(lstDificultad);
+
+        btnIniciar = new JButton("Iniciar");
+        btnIniciar.addActionListener(this);
+        btnIniciar.setActionCommand(INICIAR);
+        add(btnIniciar);
+
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.addActionListener(this);
+        btnCancelar.setActionCommand(CANCELAR);
+        add(btnCancelar);
     }
 
     /**
