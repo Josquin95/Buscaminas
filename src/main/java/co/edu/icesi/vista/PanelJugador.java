@@ -8,6 +8,7 @@ import java.awt.*;
 public class PanelJugador extends InterfazBuscaMinas {
 
     /**
+     * asaas
      * Ancho de la pantalla
      */
     public final static int ANCHO = 800;
