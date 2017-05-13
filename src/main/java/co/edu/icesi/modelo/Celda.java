@@ -50,6 +50,17 @@ public abstract class Celda {
      */
     private int etiqueta;
 
+    /**
+     * Numero de minas adyacentes que contiene la celda
+     */
+    private int minasAdyacentes;
+
+    /**
+     * Determina si la celda contiene una mina
+     */
+    private boolean mina;
+
+
     //-------------------------------------------------
     // CONSTRUCTOR
     //-------------------------------------------------
@@ -107,4 +118,33 @@ public abstract class Celda {
     public void setEtiqueta(int etiqueta) {
         this.etiqueta = etiqueta;
     }
+
+    /**
+     * @return Numero de minas adyacentes
+     */
+    public int getMinasAdyacentes() {
+        return minasAdyacentes;
+    }
+
+    /**
+     * @param minasAdyacentes numero de minas a cambiar
+     */
+    public void setMinasAdyacentes(int minasAdyacentes) {
+        this.minasAdyacentes = minasAdyacentes;
+    }
+
+    /**
+     * @return boolean que determina si la celda contiene una mina
+     */
+    public boolean isMina() {
+        return mina;
+    }
+
+    /**
+     * @param tieneMina cambia el estado de la celda
+     */
+    public void setMina(boolean tieneMina) {
+        this.mina = tieneMina;
+    }
+
 }

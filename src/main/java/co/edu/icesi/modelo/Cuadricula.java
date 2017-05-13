@@ -90,7 +90,7 @@ public class Cuadricula {
                 for (int y = Math.max(0, j - 1); y <= Math.min(j + 1, columnas); y++) {
                     if (x != i || y != j) {
                         Celda temp = celdas[x][y];
-                        if (!temp.esMina()) {
+                        if (!temp.isMina()) {
                             int numero = temp.getMinasAdyacentes();
                             temp.setMinasAdyacentes(numero + 1);
                         }
@@ -110,7 +110,7 @@ public class Cuadricula {
         for (int i = 0; i < numeroCeldas; i++) {
             for (int j = 0; j < numeroCeldas; j++) {
                 Celda temp = celdas[i][j];
-                if (temp.esMina()) {
+                if (temp.isMina()) {
                     minasAdyacentes(i, j);
                 }
             }
@@ -150,7 +150,7 @@ public class Cuadricula {
     private void fillGrid(Celda[][] arr, int x, int y) {
         int r = 0;
         int c = 0;
-        if (arr[x][y].esMina()) {
+        if (arr[x][y].isMina()) {
             /* arr[r][c] = 'W'; */
 
             fillGrid(arr, r + 1, c);
