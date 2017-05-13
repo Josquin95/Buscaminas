@@ -1,6 +1,6 @@
 package co.edu.icesi.modelo;
 
-public class CeldaVacia extends EstadoCelda {
+public class CeldaVacia extends Celda {
 
     //------------------------------------------------
     // CONSTANTES
@@ -20,7 +20,6 @@ public class CeldaVacia extends EstadoCelda {
      */
     public CeldaVacia() {
         setEstado(ESTADO_VACIO);
-        setMina(false);
     }
 
 

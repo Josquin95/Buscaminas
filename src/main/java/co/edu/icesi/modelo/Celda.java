@@ -21,6 +21,16 @@ public abstract class Celda {
      */
     public final static int INTERROGANTE = 2;
 
+    /**
+     * Constante para determinar si la celda esta tapada
+     */
+    public final static boolean TAPADA = true;
+
+    /**
+     * Constante para determinar si la celda esta destapada
+     */
+    public final static boolean DESTAPADA = false;
+
     //--------------------------------------------------
     // PROPIEDADES
     //--------------------------------------------------
@@ -31,16 +41,6 @@ public abstract class Celda {
     private String estado;
 
     /**
-     * Numero de minas adyacentes que contiene la celda
-     */
-    private int minasAdyacentes;
-
-    /**
-     * Determina si la celda contiene una mina
-     */
-    private boolean mina;
-
-    /**
      * Determina si la celda esta tapada
      */
     private boolean tapada;
@@ -48,7 +48,7 @@ public abstract class Celda {
     /**
      * Etiqueta de la celda
      */
-    private String etiqueta;
+    private int etiqueta;
 
     //-------------------------------------------------
     // CONSTRUCTOR
@@ -57,40 +57,14 @@ public abstract class Celda {
      * Constructor de la clase celda
      */
     public Celda() {
-        minasAdyacentes = 0;
+        setEtiqueta(SIN_ETIQUETA);
+        setTapada(TAPADA);
     }
 
     //--------------------------------------------------
     // SERVICIOS
     //--------------------------------------------------
 
-    /**
-     * @return Numero de minas adyacentes
-     */
-    public int getMinasAdyacentes() {
-        return minasAdyacentes;
-    }
-
-    /**
-     * @param minasAdyacentes numero de minas a cambiar
-     */
-    public void setMinasAdyacentes(int minasAdyacentes) {
-        this.minasAdyacentes = minasAdyacentes;
-    }
-
-    /**
-     * @return boolean que determina si la celda contiene una mina
-     */
-    public boolean isMina() {
-        return mina;
-    }
-
-    /**
-     * @param tieneMina cambia el estado de la celda
-     */
-    public void setMina(boolean tieneMina) {
-        this.mina = tieneMina;
-    }
 
     /**
      * @return String con el estado de la celda
@@ -118,5 +92,19 @@ public abstract class Celda {
      */
     public void setTapada(boolean tapada) {
         this.tapada = tapada;
+    }
+
+    /**
+     * @return int con la etiqueta de la celda
+     */
+    public int getEtiqueta() {
+        return etiqueta;
+    }
+
+    /**
+     * @param etiqueta cambia el estado de la etiqueta
+     */
+    public void setEtiqueta(int etiqueta) {
+        this.etiqueta = etiqueta;
     }
 }
