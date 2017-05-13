@@ -161,7 +161,7 @@ public class Cuadricula {
     }
 
     public static void main(String[] args) {
-        Cuadricula temp = new Cuadricula(8);
+        Cuadricula temp = new Cuadricula(10);
         temp.imprimirCuadricula();
 
     }
