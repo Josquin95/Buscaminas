@@ -24,7 +24,7 @@ public class Celda {
     /**
      * Constante para determinar si la celda esta tapada
      */
-    public final static boolean TAPADA = true;
+    public final static boolean TAPADA = false;
 
     /**
      * Constante para determinar si la celda esta destapada
