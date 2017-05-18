@@ -1,6 +1,7 @@
 package co.edu.icesi.vista;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  * @Autor Jose Luis Osorio Quintero
@@ -10,4 +11,6 @@ import javax.swing.*;
 public abstract class InterfazBuscaMinas extends JFrame {
 
     public abstract void update();
+
+    public abstract void addActionListener(ActionListener actionListener);
 }

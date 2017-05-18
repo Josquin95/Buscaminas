@@ -2,21 +2,22 @@ package co.edu.icesi.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.UIManager;
-import javax.swing.*;
 
 /**
  * Created by CarlosTorres on 18/05/2017.
  */
 public class MigestorDecorador implements ActionListener {
 
-  private InterfazJugador interfazJugador;
- public MigestorDecorador(InterfazJugador interfaz){
-     this.interfazJugador=interfaz;
- }
+    private InterfazJugador interfazJugador;
+
+    public MigestorDecorador(InterfazJugador interfaz) {
+        this.interfazJugador = interfaz;
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == interfazJugador.getItemPrimero()) {
+        /** if (e.getSource() == interfazJugador.getItemPrimero()) {
             try {
                 UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
             } catch (Exception u) {
@@ -36,6 +37,6 @@ public class MigestorDecorador implements ActionListener {
 
             SwingUtilities.updateComponentTreeUI(interfazJugador);
             interfazJugador.validate();
-        }
+         }**/
     }
 }

@@ -3,7 +3,7 @@ package co.edu.icesi.modelo;
 public class Tablero implements ITablero {
 
     //---------------------------------------------
-    // SERVICIOS
+    // PROPIEDADES
     //---------------------------------------------
 
     /**
@@ -26,7 +26,6 @@ public class Tablero implements ITablero {
      * crear un tablero.
      */
     public Tablero(boolean jugador) {
-        contador = Contador.getInstancia();
         if (jugador) {
             cuadricula = new CuadriculaJugador();
         } else {
@@ -34,40 +33,64 @@ public class Tablero implements ITablero {
         }
     }
 
+    //------------------------------------------------------
+    // SERVICIOS
+    //------------------------------------------------------
+
     public Cuadricula getCuadricula() {
         return cuadricula;
     }
 
-    public void setCuadricula(Cuadricula cuadricula) {
-        this.cuadricula = cuadricula;
-    }
 
     public Contador getContador() {
         return contador;
     }
 
-    public void setContador(Contador contador) {
-        this.contador = contador;
-    }
-
+    @Override
     public void attach() {
-        // TODO - implement Tablero.attach
-        throw new UnsupportedOperationException();
-    }
-
-
-
-    public void floodFill() {
-        // TODO - implement Tablero.floodFill
 
     }
 
-    public int ObternerValorCelda(int i, int j){
+    @Override
+    public void destaparVacias(int x, int y) {
+        cuadricula.fillGrid(cuadricula.getCeldas(), x, y);
+    }
 
-    int valor=cuadricula.obtenerValoresCelda(i,j);
+    @Override
+    public void finJuego() {
 
+    }
 
-        return valor;
+    @Override
+    public void iniciarJuego() {
+        contador = Contador.getInstancia();
+    }
+
+    @Override
+    public int getNumeroCeldas() {
+        return cuadricula.getNumeroCeldas();
+    }
+
+    @Override
+    public void setEtiqueta(int etiqueta, int x, int y) {
+        cuadricula.obtenerCelda(x, y).setEtiqueta(etiqueta);
+    }
+
+    public int getEtiqueta(int x, int y) {
+        return cuadricula.obtenerCelda(x, y).getEtiqueta();
+    }
+
+    public boolean isCeldaTapada(int x, int y) {
+        return cuadricula.obtenerCelda(x, y).isTapada();
+    }
+
+    public void destaparCelda(int x, int y) {
+        cuadricula.obtenerCelda(x, y).setTapada(false);
+    }
+
+    @Override
+    public int ObternerValorCelda(int i, int j) {
+        return cuadricula.obtenerCelda(i, j).getMinasAdyacentes();
     }
 
 }

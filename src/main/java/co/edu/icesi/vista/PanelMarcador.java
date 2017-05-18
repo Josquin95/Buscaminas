@@ -1,5 +1,7 @@
 package co.edu.icesi.vista;
 
+import java.awt.event.ActionListener;
+
 public class PanelMarcador extends InterfazBuscaMinas {
 
     public PanelMarcador() {
@@ -8,6 +10,11 @@ public class PanelMarcador extends InterfazBuscaMinas {
 
     @Override
     public void update() {
+
+    }
+
+    @Override
+    public void addActionListener(ActionListener actionListener) {
 
     }
 }

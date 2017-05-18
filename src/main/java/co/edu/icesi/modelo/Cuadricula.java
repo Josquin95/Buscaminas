@@ -10,7 +10,12 @@ public abstract class Cuadricula {
     /**
      * Estandar de casillas para obtener el ratio de minas por cuadricula
      */
-    public final static int ESTANDAR_CASILLAS = 4;
+    public final static int ESTANDAR_CASILLAS = 64;
+
+    /**
+     * Nuemero de casillas por defecto
+     */
+    public final static int NUMERO_DEFECTO_CASILLAS = 8;
 
     /**
      * Matriz de celdas
@@ -28,7 +33,7 @@ public abstract class Cuadricula {
      * de minas adyacentes.
      */
     public Cuadricula() {
-        this.numeroCeldas = ESTANDAR_CASILLAS;
+        this.numeroCeldas = NUMERO_DEFECTO_CASILLAS;
         inicializarCeldas();
         crearMinas();
     }
@@ -103,10 +108,11 @@ public abstract class Cuadricula {
      * @param x   posicion de fila de la celda en la cuadricula.
      * @param y   posicion de columna de la celda en la cuadricula.
      */
-    private void fillGrid(Celda[][] arr, int x, int y) {
+    public void fillGrid(CeldaBuilder[][] arr, int x, int y) {
         int r = 0;
         int c = 0;
-        if (arr[x][y].isMina()) {
+        Celda celda = arr[x][y].getCelda();
+        if (celda.isMina()) {
             /* arr[r][c] = 'W'; */
 
             fillGrid(arr, r + 1, c);
@@ -155,23 +161,21 @@ public abstract class Cuadricula {
     public abstract void inicializarNumeros();
 
     /**
-     * Se encarga obtener el valor que tiene cada celda
+     * Se encarga obtener la celda
      * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
      * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
      */
 
-    public int obtenerValoresCelda(int i,int j){
-
-
-        int valorCelda=0;
-
-                valorCelda=celdas[i][j].getCelda().getMinasAdyacentes();
-        return valorCelda;
-
+    public Celda obtenerCelda(int i, int j) {
+        return celdas[i][j].getCelda();
     }
 
     public int getNumeroCeldas() {
         return numeroCeldas;
+    }
+
+    public CeldaBuilder[][] getCeldas() {
+        return celdas;
     }
 
 }

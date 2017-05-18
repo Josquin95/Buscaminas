@@ -25,6 +25,7 @@ public class CeldaNumero extends CeldaBuilder {
      */
     @Override
     public void configurarCelda(int numero) {
+        celda.setTapada(true);
         celda.setEstado(ESTADO_NUMERO);
         celda.setMina(NO_TIENE_MINA);
         celda.setMinasAdyacentes(numero);

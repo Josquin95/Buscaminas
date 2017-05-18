@@ -3,13 +3,12 @@ package co.edu.icesi.vista;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  * Created by Josquin on 11/05/2017.
  */
-public class PanelEstado extends JPanel implements ActionListener {
+public class PanelEstado extends JPanel {
 
     //-------------------------------------------------------------
     // CONSTANTES
@@ -155,12 +154,10 @@ public class PanelEstado extends JPanel implements ActionListener {
         add(lstDificultad);
 
         btnIniciar = new JButton("Iniciar");
-        btnIniciar.addActionListener(this);
         btnIniciar.setActionCommand(INICIAR);
         add(btnIniciar);
 
         btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(this);
         btnCancelar.setActionCommand(CANCELAR);
         add(btnCancelar);
     }
@@ -181,6 +178,11 @@ public class PanelEstado extends JPanel implements ActionListener {
 
         this.add(label);
         this.add(txtfiel);
+    }
+
+    public void addActionListener(ActionListener actionListener) {
+        btnIniciar.addActionListener(actionListener);
+        btnCancelar.addActionListener(actionListener);
     }
 
     public String getTxtTiempo() {
@@ -215,9 +217,5 @@ public class PanelEstado extends JPanel implements ActionListener {
         this.txtBanderas.setText(txtBanderas);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 
 }

@@ -5,7 +5,6 @@ import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -13,9 +12,16 @@ import java.awt.event.ActionListener;
  * Universidad Icesi - 2017 - 05
  * Este es un proyecto academico para la clase de diseno de patrones.
  */
-public class PanelTablero extends JPanel implements ActionListener {
+public class PanelTablero extends JPanel {
 
+    /**
+     * Largo del panel
+     */
     public final static int LARGO = 600;
+
+    /**
+     * Ancho del panel
+     */
     public final static int ANCHO = 600;
 
     /**
@@ -34,9 +40,9 @@ public class PanelTablero extends JPanel implements ActionListener {
     private ControlJuego control;
 
     /**
-     * Son los botones que iran dentro de la matriz
+     * Numero de botones a crear
      */
-    private BotonCuadricula boton;
+    private int numeroBotones;
 
     /**
      * Constructor para la clase panel tablero, se encarga
@@ -45,6 +51,7 @@ public class PanelTablero extends JPanel implements ActionListener {
      * @param numeroBotones longitud de la matriz de botones.
      */
     public PanelTablero(int numeroBotones, Tablero tablero) {
+        this.numeroBotones = numeroBotones;
         setLayout(new GridLayout(numeroBotones, numeroBotones));
         inicializarPanel(numeroBotones,tablero);
     }
@@ -55,22 +62,45 @@ public class PanelTablero extends JPanel implements ActionListener {
      *
      * @param numeroBotones longitud de la matriz de botones
      */
-    private void inicializarPanel(int numeroBotones,Tablero tablero) {
+    private void inicializarPanel(int numeroBotones, Tablero tablero) {
         setSize(LARGO, ANCHO);
         btnCasillas = new JButton[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
-                boton=new BotonCuadricula(tablero.ObternerValorCelda(i,j));
-                btnCasillas[i][j] = boton;
-                btnCasillas[i][j].addActionListener(this);
+                btnCasillas[i][j] = new JButton();
+                btnCasillas[i][j].setActionCommand("CELDA[" + i + " " + j + "]");
                 add(btnCasillas[i][j]);
+            }
+        }
+        refrescarBotones(tablero);
+    }
+
+    public void addActionListener(ActionListener actionListener) {
+        for (int i = 0; i < numeroBotones; i++) {
+            for (int j = 0; j < numeroBotones; j++) {
+                btnCasillas[i][j].addActionListener(actionListener);
             }
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    /**
+     * Refresca los botones del tablero
+     *
+     * @param tablero clase facade del mundo
+     */
+    public void refrescarBotones(Tablero tablero) {
+        for (int i = 0; i < numeroBotones; i++) {
+            for (int j = 0; j < numeroBotones; j++) {
+                boolean destapada = tablero.isCeldaTapada(i, j);
+                int numero = tablero.ObternerValorCelda(i, j);
+                String valor = (numero == 0) ? " " : numero + "";
+                if (!destapada) {
+                    btnCasillas[i][j].setEnabled(destapada);
+                    btnCasillas[i][j].setText(valor);
+                }
 
+            }
+        }
     }
 }
 

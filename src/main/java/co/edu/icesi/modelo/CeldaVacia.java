@@ -30,6 +30,7 @@ public class CeldaVacia extends CeldaBuilder {
      */
     @Override
     public void configurarCelda(int numero) {
+        celda.setTapada(true);
         celda.setMina(NO_TIENE_MINA);
         celda.setMinasAdyacentes(ADYANCENTES);
         celda.setEstado(ESTADO_VACIO);
