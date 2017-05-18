@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by 1143929085 on 18/05/2017.
+ * Created by CarlosTorres on 18/05/2017.
  */
 public class MigestorDecorador implements ActionListener {
 
