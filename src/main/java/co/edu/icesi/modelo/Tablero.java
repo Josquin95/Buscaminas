@@ -62,4 +62,12 @@ public class Tablero implements ITablero {
 
     }
 
+    public int ObternerValorCelda(int i, int j){
+
+    int valor=cuadricula.obtenerValoresCelda(i,j);
+
+
+        return valor;
+    }
+
 }
