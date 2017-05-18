@@ -108,6 +108,10 @@ public class InterfazJugador extends InterfazBuscaMinas {
         return itemPrimero;
     }
 
+    public JMenuItem getItemSegundo() {
+        return itemSegundo;
+    }
+
     public static void main(String args[]) {
         Tablero modelo = new Tablero(true);
         InterfazJugador panelJugador = new InterfazJugador(modelo);
