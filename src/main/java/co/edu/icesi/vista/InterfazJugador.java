@@ -51,15 +51,15 @@ public class InterfazJugador extends InterfazBuscaMinas {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        construirPaneles();
+        construirPaneles(modelo);
     }
 
-    private void construirPaneles() {
+    private void construirPaneles(Tablero modelo) {
         panelSuperior = new JPanel();
         panelSuperior.add(new JLabel("Panel Superior"));
         add(panelSuperior, BorderLayout.NORTH);
 
-        panelTablero = new PanelTablero(8); // TODO cambiar luego
+        panelTablero = new PanelTablero(modelo.getCuadricula().getNumeroCeldas()); // TODO cambiar luego
         add(panelTablero, BorderLayout.CENTER);
 
         panelEstado = new PanelEstado(this);
