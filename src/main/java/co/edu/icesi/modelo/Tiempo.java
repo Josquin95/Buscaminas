@@ -96,8 +96,6 @@ public class Tiempo extends Thread {
 
                 //Colocamos en la etiqueta la informacion
                 setCronometro(min + ":" + seg + ":" + mil);
-
-                System.out.println(cronometro);
             }
         } catch (Exception e) {
         }

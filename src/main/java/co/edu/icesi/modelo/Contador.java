@@ -2,6 +2,10 @@ package co.edu.icesi.modelo;
 
 public class Contador extends Thread {
 
+    //----------------------------------------
+    // SERVICIOS
+    //----------------------------------------
+
     /**
      * Instacia del singleton
      */
@@ -11,8 +15,6 @@ public class Contador extends Thread {
      * Tiempo del juego
      */
     private Tiempo tiempo;
-
-
 
     /**
      * Numero de minas que hay en el juego
@@ -34,10 +36,16 @@ public class Contador extends Thread {
      */
     private int interrogantes;
 
+    //--------------------------------------------
+    // CONSTRUCTOR
+    //--------------------------------------------
+
     /**
-     * Constructor de la clase contador, crear el contador y reinicia los marcadores
+     * Constructor de la clase contador, crear el
+     * contador y reinicia los marcadores
      */
     private Contador() {
+        tiempo = Tiempo.getInstancia();
         reiniciarMarcador();
     }
 

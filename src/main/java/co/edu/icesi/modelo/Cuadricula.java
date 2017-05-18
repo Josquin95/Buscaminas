@@ -26,11 +26,9 @@ public abstract class Cuadricula {
      * Metodo constructor, se encarga de crear la cuadricula con
      * el numero de celdas, minas y la cantidad de celdas con numero
      * de minas adyacentes.
-     *
-     * @param numeroCeldas longitud de la matriz de celdas (matriz N x N)
      */
-    public Cuadricula(int numeroCeldas) {
-        this.numeroCeldas = numeroCeldas;
+    public Cuadricula() {
+        this.numeroCeldas = ESTANDAR_CASILLAS;
         inicializarCeldas();
         crearMinas();
     }

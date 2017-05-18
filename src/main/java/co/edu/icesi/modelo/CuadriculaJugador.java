@@ -9,11 +9,9 @@ public class CuadriculaJugador extends Cuadricula {
      * Metodo constructor, se encarga de crear la cuadricula con
      * el numero de celdas, minas y la cantidad de celdas con numero
      * de minas adyacentes.
-     *
-     * @param numeroCeldas longitud de la matriz de celdas (matriz N x N)
      */
-    public CuadriculaJugador(int numeroCeldas) {
-        super(numeroCeldas);
+    public CuadriculaJugador() {
+        super();
         inicializarNumeros();
     }
 
@@ -36,7 +34,7 @@ public class CuadriculaJugador extends Cuadricula {
     }
 
     public static void main(String[] args) {
-        Cuadricula temp = new CuadriculaJugador(10);
+        Cuadricula temp = new CuadriculaJugador();
         temp.imprimirCuadricula();
         Tiempo tiempo = Tiempo.getInstancia();
         tiempo.setActivo(true);
