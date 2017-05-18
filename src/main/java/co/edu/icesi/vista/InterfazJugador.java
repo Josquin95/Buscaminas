@@ -80,10 +80,10 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelSuperior.add(new JLabel("Panel Superior"));
         this.barraMenu.add(this.menuConfiguracion);//Se agrega el menu a la barra
         this.menuConfiguracion.add(itemConfiguracion);//Se agrega le item al
-        itemPrimero.addActionListener(new MigestorDecorador());
-        this.itemConfiguracion.add(itemPrimero);
-        itemSegundo.addActionListener(new MigestorDecorador());
-        this.itemConfiguracion.add(itemSegundo);
+        itemPrimero.addActionListener(new MigestorDecorador());//se agrega al gestor decorador
+        this.itemConfiguracion.add(itemPrimero);//se agrega la primera opción
+        itemSegundo.addActionListener(new MigestorDecorador());//se agrega al gestor decorador
+        this.itemConfiguracion.add(itemSegundo);//se agrega la segunda opción
         this.setJMenuBar(this.barraMenu);
         this.barraMenu.setVisible(true);
         add(panelSuperior, BorderLayout.NORTH);
