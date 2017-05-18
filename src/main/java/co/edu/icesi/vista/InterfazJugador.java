@@ -73,7 +73,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelSuperior = new JPanel();
         panelSuperior.add(new JLabel("Panel Superior"));
         this.barraMenu.add(this.menuConfiguracion);
-        this.menuConfiguracion.add(menuConfiguracion);
+        this.menuConfiguracion.add(itemConfiguracion);
         this.setJMenuBar(this.barraMenu);
         add(panelSuperior, BorderLayout.NORTH);
 
