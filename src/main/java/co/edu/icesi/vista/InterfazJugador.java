@@ -80,9 +80,9 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelSuperior.add(new JLabel("Panel Superior"));
         this.barraMenu.add(this.menuConfiguracion);//Se agrega el menu a la barra
         this.menuConfiguracion.add(itemConfiguracion);//Se agrega le item al
-        itemPrimero.addActionListener(new MigestorDecorador());//se agrega al gestor decorador
+        itemPrimero.addActionListener(new MigestorDecorador(this));//se agrega al gestor decorador
         this.itemConfiguracion.add(itemPrimero);//se agrega la primera opción
-        itemSegundo.addActionListener(new MigestorDecorador());//se agrega al gestor decorador
+        itemSegundo.addActionListener(new MigestorDecorador(this));//se agrega al gestor decorador
         this.itemConfiguracion.add(itemSegundo);//se agrega la segunda opción
         this.setJMenuBar(this.barraMenu);
         this.barraMenu.setVisible(true);
@@ -102,6 +102,10 @@ public class InterfazJugador extends InterfazBuscaMinas {
     @Override
     public void update() {
         ;
+    }
+
+    public JMenuItem getItemPrimero() {
+        return itemPrimero;
     }
 
     public static void main(String args[]) {
