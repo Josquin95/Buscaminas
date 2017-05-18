@@ -4,6 +4,7 @@ import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class InterfazJugador extends InterfazBuscaMinas {
 
@@ -37,6 +38,9 @@ public class InterfazJugador extends InterfazBuscaMinas {
 
     private JPanel panelInferior;
 
+    /**
+     * Clase facade del mundo que conecta con la interfaz
+     */
     private Tablero modelo;
 
     /**
@@ -47,7 +51,6 @@ public class InterfazJugador extends InterfazBuscaMinas {
         setTitle(NOMBRE_APP);
         setSize(ANCHO, LARGO);
         setResizable(false); // No se pemite la modificacion del tamaño
-        setLocationRelativeTo(null); // Su posicion siempre sera en el centro
         setLayout(new BorderLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -59,7 +62,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelSuperior.add(new JLabel("Panel Superior"));
         add(panelSuperior, BorderLayout.NORTH);
 
-        panelTablero = new PanelTablero(modelo.getCuadricula().getNumeroCeldas(),modelo); // TODO cambiar luego
+        panelTablero = new PanelTablero(modelo.getNumeroCeldas(), modelo);
         add(panelTablero, BorderLayout.CENTER);
 
         panelEstado = new PanelEstado(this);
@@ -69,16 +72,15 @@ public class InterfazJugador extends InterfazBuscaMinas {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
+    public void addActionListener(ActionListener actionListener) {
+        panelEstado.addActionListener(actionListener);
+        panelTablero.addActionListener(actionListener);
+    }
+
 
     @Override
     public void update() {
-        ;
+        panelTablero.refrescarBotones(modelo);
     }
 
-    public static void main(String args[]) {
-        Tablero modelo = new Tablero(true);
-        InterfazJugador panelJugador = new InterfazJugador(modelo);
-        panelJugador.setVisible(true);
-
-    }
 }
