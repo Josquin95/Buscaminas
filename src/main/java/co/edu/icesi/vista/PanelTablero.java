@@ -1,6 +1,7 @@
 package co.edu.icesi.vista;
 
 import co.edu.icesi.control.ControlJuego;
+import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,14 +34,19 @@ public class PanelTablero extends JPanel implements ActionListener {
     private ControlJuego control;
 
     /**
+     * Son los botones que iran dentro de la matriz
+     */
+    private BotonCuadricula boton;
+
+    /**
      * Constructor para la clase panel tablero, se encarga
      * de crear los elementos graficos del panel.
      *
      * @param numeroBotones longitud de la matriz de botones.
      */
-    public PanelTablero(int numeroBotones) {
+    public PanelTablero(int numeroBotones, Tablero tablero) {
         setLayout(new GridLayout(numeroBotones, numeroBotones));
-        inicializarPanel(numeroBotones);
+        inicializarPanel(numeroBotones,tablero);
     }
 
     /**
@@ -49,12 +55,13 @@ public class PanelTablero extends JPanel implements ActionListener {
      *
      * @param numeroBotones longitud de la matriz de botones
      */
-    private void inicializarPanel(int numeroBotones) {
+    private void inicializarPanel(int numeroBotones,Tablero tablero) {
         setSize(LARGO, ANCHO);
         btnCasillas = new JButton[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
-                btnCasillas[i][j] = new JButton();
+                boton=new BotonCuadricula(tablero.ObternerValorCelda(i,j));
+                btnCasillas[i][j] = boton;
                 btnCasillas[i][j].addActionListener(this);
                 add(btnCasillas[i][j]);
             }
