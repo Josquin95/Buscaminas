@@ -75,6 +75,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.barraMenu.add(this.menuConfiguracion);
         this.menuConfiguracion.add(itemConfiguracion);
         this.setJMenuBar(this.barraMenu);
+        this.barraMenu.setVisible(true);
         add(panelSuperior, BorderLayout.NORTH);
 
         panelTablero = new PanelTablero(modelo.getCuadricula().getNumeroCeldas(),modelo); // TODO cambiar luego
