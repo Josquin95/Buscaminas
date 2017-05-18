@@ -1,11 +1,18 @@
 package co.edu.icesi.modelo;
 
-public class Contador {
+public class Contador extends Thread {
+
+    /**
+     * Instacia del singleton
+     */
+    private static Contador INSTANCIA = null;
 
     /**
      * Tiempo del juego
      */
-    private long tiempo;
+    private Tiempo tiempo;
+
+
 
     /**
      * Numero de minas que hay en el juego
@@ -30,7 +37,7 @@ public class Contador {
     /**
      * Constructor de la clase contador, crear el contador y reinicia los marcadores
      */
-    public Contador() {
+    private Contador() {
         reiniciarMarcador();
     }
 
@@ -38,21 +45,68 @@ public class Contador {
      * Reinicia los marcadores del juego
      */
     public void reiniciarMarcador(){
-        setTiempo(0);
+        //setTiempo(0);
         setMinas(0);
         setBanderas(0);
         setDestapadas(0);
         setInterrogantes(0);
     }
 
-    public long getTiempo() {
+    /**
+     * creador sincronizado para protegerse de posibles problemas  multi-hilo
+     */
+    private synchronized static void createInstance() {
+        if (INSTANCIA == null) {
+            INSTANCIA = new Contador();
+        }
+    }
+
+    /**
+     * @return retorna la instancia del contador
+     */
+    public static Contador getInstancia() {
+        if (INSTANCIA == null) createInstancia();
+        return INSTANCIA;
+    }
+
+    /**
+     * Crea la instancia del contador
+     */
+    private static void createInstancia() {
+        if (INSTANCIA == null) {
+            // Sólo se accede a la zona sincronizada
+            // cuando la instancia no está creada
+            synchronized (Contador.class) {
+                // En la zona sincronizada sería necesario volver
+                // a comprobar que no se ha creado la instancia
+                if (INSTANCIA == null) {
+                    INSTANCIA = new Contador();
+                }
+            }
+        }
+    }
+
+    /**
+     * El contador no se puede clonar
+     *
+     * @return No retorna nada
+     * @throws CloneNotSupportedException La clase contador no soporta clonacion por ser un singleton
+     */
+    public Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+
+    /**
+     * @return retorna el tiempo del juego
+     */
+    public Tiempo getTiempo() {
         return this.tiempo;
     }
 
     /**
      * @param tiempo cambiar el tiempo del juego
      */
-    public void setTiempo(long tiempo) {
+    public void setTiempo(Tiempo tiempo) {
         this.tiempo = tiempo;
     }
 

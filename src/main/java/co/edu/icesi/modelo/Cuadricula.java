@@ -5,7 +5,7 @@ package co.edu.icesi.modelo;
  * Universidad Icesi - 2017 - 05
  * Este es un proyecto academico para la clase de diseno de patrones.
  */
-public class Cuadricula {
+public abstract class Cuadricula {
 
     /**
      * Estandar de casillas para obtener el ratio de minas por cuadricula
@@ -15,12 +15,12 @@ public class Cuadricula {
     /**
      * Matriz de celdas
      */
-    private CeldaBuilder[][] celdas;
+    protected CeldaBuilder[][] celdas;
 
     /**
      * Longitud de la matriz de celdas
      */
-    private int numeroCeldas;
+    protected int numeroCeldas;
 
     /**
      * Metodo constructor, se encarga de crear la cuadricula con
@@ -33,7 +33,6 @@ public class Cuadricula {
         this.numeroCeldas = numeroCeldas;
         inicializarCeldas();
         crearMinas();
-        inicializarNumeros();
     }
 
     /**
@@ -74,58 +73,12 @@ public class Cuadricula {
         }
     }
 
-    /**
-     * Se encarga de calcular cuantas minas adyacentes tiene la
-     * celda seleccionada.
-     * <b> Precondicion: </b> se debe crear e inicializar una matriz con celdas vacias.
-     * <b> Poscondicion: </b> se calcula el numero de minas adyacentes de la celda
-     *
-     * @param i numero de la fila de la celda
-     * @param j numero de la columna de la celda.
-     */
-    private void minasAdyacentes(int i, int j) {
-        int filas = numeroCeldas - 1;
-        if (filas > 0) {
-            int columnas = numeroCeldas - 1;
-            for (int x = Math.max(0, i - 1); x <= Math.min(i + 1, filas); x++) {
-                for (int y = Math.max(0, j - 1); y <= Math.min(j + 1, columnas); y++) {
-                    if (x != i || y != j) {
-                        Celda celda = celdas[x][y].getCelda();
-                        String mina = celda.getEstado();
-                        if (!celda.isMina()) {
-                            int numero = celda.getMinasAdyacentes();
-                            celdas[x][y] = new CeldaNumero();
-                            celdas[x][y].setCelda(celda);
-                            celdas[x][y].configurarCelda(numero + 1);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
-    /**
-     * Se encarga de analizar cuantas minas adyacentes hay por
-     * cada celda.
-     * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
-     * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
-     */
-    public void inicializarNumeros() {
-        for (int i = 0; i < numeroCeldas; i++) {
-            for (int j = 0; j < numeroCeldas; j++) {
-                CeldaBuilder celdaBuilder = celdas[i][j];
-                Celda celda = celdaBuilder.getCelda();
-                if (celda.isMina()) {
-                    minasAdyacentes(i, j);
-                }
-            }
-        }
-    }
 
     /**
      * Metodo para imprimir la cuadricula por consola
      */
-    private void imprimirCuadricula() {
+    protected void imprimirCuadricula() {
         for (int i = 0; i < numeroCeldas; i++) {
             for (int j = 0; j < numeroCeldas; j++) {
                 System.out.print(celdas[i][j].getCelda().getMinasAdyacentes() + " ");
@@ -165,10 +118,42 @@ public class Cuadricula {
         }
     }
 
-    public static void main(String[] args) {
-        Cuadricula temp = new Cuadricula(10);
-        temp.imprimirCuadricula();
-
+    /**
+     * Se encarga de calcular cuantas minas adyacentes tiene la
+     * celda seleccionada.
+     * <b> Precondicion: </b> se debe crear e inicializar una matriz con celdas vacias.
+     * <b> Poscondicion: </b> se calcula el numero de minas adyacentes de la celda
+     *
+     * @param i numero de la fila de la celda
+     * @param j numero de la columna de la celda.
+     */
+    protected void minasAdyacentes(int i, int j) {
+        int filas = numeroCeldas - 1;
+        if (filas > 0) {
+            int columnas = numeroCeldas - 1;
+            for (int x = Math.max(0, i - 1); x <= Math.min(i + 1, filas); x++) {
+                for (int y = Math.max(0, j - 1); y <= Math.min(j + 1, columnas); y++) {
+                    if (x != i || y != j) {
+                        Celda celda = celdas[x][y].getCelda();
+                        String mina = celda.getEstado();
+                        if (!celda.isMina()) {
+                            int numero = celda.getMinasAdyacentes();
+                            celdas[x][y] = new CeldaNumero();
+                            celdas[x][y].setCelda(celda);
+                            celdas[x][y].configurarCelda(numero + 1);
+                        }
+                    }
+                }
+            }
+        }
     }
+
+    /**
+     * Se encarga de analizar cuantas minas adyacentes hay por
+     * cada celda.
+     * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
+     * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
+     */
+    public abstract void inicializarNumeros();
 
 }
