@@ -10,7 +10,7 @@ public abstract class Cuadricula {
     /**
      * Estandar de casillas para obtener el ratio de minas por cuadricula
      */
-    public final static int ESTANDAR_CASILLAS = 64;
+    public final static int ESTANDAR_CASILLAS = 4;
 
     /**
      * Matriz de celdas
@@ -153,5 +153,9 @@ public abstract class Cuadricula {
      * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
      */
     public abstract void inicializarNumeros();
+
+    public int getNumeroCeldas() {
+        return numeroCeldas;
+    }
 
 }
