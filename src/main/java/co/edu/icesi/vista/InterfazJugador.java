@@ -4,6 +4,7 @@ import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class InterfazJugador extends InterfazBuscaMinas {
 
@@ -40,7 +41,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
     private JMenu itemConfiguracion;
 
     private JMenuItem itemPrimero;
-    private JMenuItem ItemSegundo;
+    private JMenuItem itemSegundo;
 
 
     private JPanel panelSuperior;
@@ -63,6 +64,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.menuConfiguracion= new JMenu("Configuración aspecto");
         this.itemConfiguracion=new JMenu("Modificar");
         this.itemPrimero=new JMenuItem("Opción 1");
+        this.itemSegundo=new JMenuItem("Opción 2");
         setTitle(NOMBRE_APP);
         setSize(ANCHO, LARGO);
         setResizable(false); // No se pemite la modificacion del tamaño
@@ -78,7 +80,10 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelSuperior.add(new JLabel("Panel Superior"));
         this.barraMenu.add(this.menuConfiguracion);//Se agrega el menu a la barra
         this.menuConfiguracion.add(itemConfiguracion);//Se agrega le item al
-       this.itemConfiguracion.add(itemPrimero);
+        itemPrimero.addActionListener(new MigestorDecorador());
+        this.itemConfiguracion.add(itemPrimero);
+        itemSegundo.addActionListener(new MigestorDecorador());
+        this.itemConfiguracion.add(itemSegundo);
         this.setJMenuBar(this.barraMenu);
         this.barraMenu.setVisible(true);
         add(panelSuperior, BorderLayout.NORTH);
@@ -105,4 +110,5 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelJugador.setVisible(true);
 
     }
+
 }
