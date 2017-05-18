@@ -26,6 +26,18 @@ public class InterfazJugador extends InterfazBuscaMinas {
      * Panel que contiene la matriz de botones
      */
     private PanelTablero panelTablero;
+    /**
+     * Menu para la personilización
+     */
+    private JMenuBar barraMenu;
+    /**
+     * Menu para la personilización de la configuración
+     */
+    private JMenu menuConfiguracion;
+    /**
+     * item desde donde se podra realizar la configuración de la personalización
+     */
+    private JMenuItem itemConfiguracion;
 
 
     private JPanel panelSuperior;
@@ -44,6 +56,9 @@ public class InterfazJugador extends InterfazBuscaMinas {
      */
     public InterfazJugador(Tablero modelo) {
         this.modelo = modelo;
+        this.barraMenu=new JMenuBar();
+        this.menuConfiguracion= new JMenu("Configuración aspecto");
+        this.itemConfiguracion=new JMenuItem("Modificar");
         setTitle(NOMBRE_APP);
         setSize(ANCHO, LARGO);
         setResizable(false); // No se pemite la modificacion del tamaño
@@ -57,6 +72,9 @@ public class InterfazJugador extends InterfazBuscaMinas {
     private void construirPaneles(Tablero modelo) {
         panelSuperior = new JPanel();
         panelSuperior.add(new JLabel("Panel Superior"));
+        this.barraMenu.add(this.menuConfiguracion);
+        this.menuConfiguracion.add(menuConfiguracion);
+        this.setJMenuBar(this.barraMenu);
         add(panelSuperior, BorderLayout.NORTH);
 
         panelTablero = new PanelTablero(modelo.getCuadricula().getNumeroCeldas(),modelo); // TODO cambiar luego
