@@ -1,7 +1,5 @@
 package co.edu.icesi.vista;
 
-import co.edu.icesi.modelo.JuegoFacade;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -128,7 +126,7 @@ public class PanelEstado extends JPanel implements ActionListener {
     //--------------------------------------------------------------
     // CONSTRUCTOR
     //--------------------------------------------------------------
-    public PanelEstado(InterfazBuscaMinas view, JuegoFacade modelo) {
+    public PanelEstado(InterfazBuscaMinas view) {
         this.view = view;
 
         setLayout(new GridLayout(6, 2));
@@ -144,6 +142,7 @@ public class PanelEstado extends JPanel implements ActionListener {
      * Se crea e inicializa todos los componentes del panel de estado
      */
     private void inicializarPanel() {
+        txtTiempo = new JTextField();
         crearMarcadores(lbTiempo, TIEMPO, txtTiempo, TIEMPO_CERO);
         crearMarcadores(lbMinas, MINAS, txtMinas, CONTADOR_CERO);
         crearMarcadores(lbBanderas, BANDERAS, txtBanderas, CONTADOR_CERO);
@@ -184,8 +183,41 @@ public class PanelEstado extends JPanel implements ActionListener {
         this.add(txtfiel);
     }
 
+    public String getTxtTiempo() {
+        return txtTiempo.getText();
+    }
+
+    public void setTxtTiempo(String txtTiempo) {
+        this.txtTiempo.setText(txtTiempo);
+    }
+
+    public String getTxtMinas() {
+        return txtMinas.getText();
+    }
+
+    public void setTxtMinas(String txtMinas) {
+        this.txtMinas.setText(txtMinas);
+    }
+
+    public String getTxtDestapadas() {
+        return txtDestapadas.getText();
+    }
+
+    public void setTxtDestapadas(String txtDestapadas) {
+        this.txtDestapadas.setText(txtDestapadas);
+    }
+
+    public String getTxtBanderas() {
+        return txtBanderas.getText();
+    }
+
+    public void setTxtBanderas(String txtBanderas) {
+        this.txtBanderas.setText(txtBanderas);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
+
 }

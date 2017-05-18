@@ -1,11 +1,11 @@
 package co.edu.icesi.vista;
 
-import co.edu.icesi.modelo.JuegoFacade;
+import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelJugador extends InterfazBuscaMinas {
+public class InterfazJugador extends InterfazBuscaMinas {
 
     /**
      * Ancho de la pantalla ss
@@ -37,10 +37,13 @@ public class PanelJugador extends InterfazBuscaMinas {
 
     private JPanel panelInferior;
 
+    private Tablero modelo;
+
     /**
      * Constructor panel que se encarga de construir la interfaz de jugador
      */
-    public PanelJugador(JuegoFacade modelo) {
+    public InterfazJugador(Tablero modelo) {
+        this.modelo = modelo;
         setTitle(NOMBRE_APP);
         setSize(ANCHO, LARGO);
         setResizable(false); // No se pemite la modificacion del tamaño
@@ -48,10 +51,10 @@ public class PanelJugador extends InterfazBuscaMinas {
         setLayout(new BorderLayout());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        construirPaneles(modelo);
+        construirPaneles();
     }
 
-    private void construirPaneles(JuegoFacade modelo) {
+    private void construirPaneles() {
         panelSuperior = new JPanel();
         panelSuperior.add(new JLabel("Panel Superior"));
         add(panelSuperior, BorderLayout.NORTH);
@@ -59,21 +62,23 @@ public class PanelJugador extends InterfazBuscaMinas {
         panelTablero = new PanelTablero(8); // TODO cambiar luego
         add(panelTablero, BorderLayout.CENTER);
 
-        panelEstado = new PanelEstado(this, modelo);
+        panelEstado = new PanelEstado(this);
         add(panelEstado, BorderLayout.EAST);
 
         panelInferior = new JPanel();
         add(panelInferior, BorderLayout.SOUTH);
     }
 
+
     @Override
     public void update() {
-
+        ;
     }
 
     public static void main(String args[]) {
-        JuegoFacade modelo = new JuegoFacade();
-        PanelJugador panelJugador = new PanelJugador(modelo);
+        Tablero modelo = new Tablero(true);
+        InterfazJugador panelJugador = new InterfazJugador(modelo);
         panelJugador.setVisible(true);
+
     }
 }
