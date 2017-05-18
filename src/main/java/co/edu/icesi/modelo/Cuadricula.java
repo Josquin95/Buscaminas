@@ -154,6 +154,22 @@ public abstract class Cuadricula {
      */
     public abstract void inicializarNumeros();
 
+    /**
+     * Se encarga obtener el valor que tiene cada celda
+     * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
+     * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
+     */
+
+    public int obtenerValoresCelda(int i,int j){
+
+
+        int valorCelda=0;
+
+                valorCelda=celdas[i][j].getCelda().getMinasAdyacentes();
+        return valorCelda;
+
+    }
+
     public int getNumeroCeldas() {
         return numeroCeldas;
     }
