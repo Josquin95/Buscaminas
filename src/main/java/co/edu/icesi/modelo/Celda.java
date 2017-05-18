@@ -1,6 +1,6 @@
 package co.edu.icesi.modelo;
 
-public abstract class Celda {
+public class Celda {
 
     //---------------------------------------------------
     // CONSTANTES
@@ -61,21 +61,9 @@ public abstract class Celda {
     private boolean mina;
 
 
-    //-------------------------------------------------
-    // CONSTRUCTOR
-    //-------------------------------------------------
-    /**
-     * Constructor de la clase celda
-     */
-    public Celda() {
-        setEtiqueta(SIN_ETIQUETA);
-        setTapada(TAPADA);
-    }
-
     //--------------------------------------------------
     // SERVICIOS
     //--------------------------------------------------
-
 
     /**
      * @return String con el estado de la celda

@@ -15,7 +15,7 @@ public class Cuadricula {
     /**
      * Matriz de celdas
      */
-    private Celda[][] celdas;
+    private CeldaBuilder[][] celdas;
 
     /**
      * Longitud de la matriz de celdas
@@ -40,11 +40,13 @@ public class Cuadricula {
      * Se encarga de crear una matriz con celdas vacias
      */
     public void inicializarCeldas() {
-        celdas = new Celda[numeroCeldas][numeroCeldas];
+        celdas = new CeldaBuilder[numeroCeldas][numeroCeldas];
         for (int i = 0; i < celdas.length; i++) {
             for (int j = 0; j < celdas.length; j++) {
                 // Al inicializar por defecto todas son vacias
                 celdas[i][j] = new CeldaVacia();
+                celdas[i][j].crearCelda();
+                celdas[i][j].configurarCelda(0);
             }
         }
     }
@@ -64,12 +66,11 @@ public class Cuadricula {
 
             //System.out.println(posX + " <-> " + posY);
 
-            Celda mina = new CeldaMina();
-            //TODO Agregar el patron de state
-            mina.setMinasAdyacentes(9);
-            mina.setMina(true);
+            CeldaBuilder celdaMina = new CeldaMina();
+            celdaMina.crearCelda();
+            celdaMina.configurarCelda(9);
 
-            celdas[posX][posY] = mina;
+            celdas[posX][posY] = celdaMina;
         }
     }
 
@@ -89,10 +90,13 @@ public class Cuadricula {
             for (int x = Math.max(0, i - 1); x <= Math.min(i + 1, filas); x++) {
                 for (int y = Math.max(0, j - 1); y <= Math.min(j + 1, columnas); y++) {
                     if (x != i || y != j) {
-                        Celda temp = celdas[x][y];
-                        if (!temp.isMina()) {
-                            int numero = temp.getMinasAdyacentes();
-                            temp.setMinasAdyacentes(numero + 1);
+                        Celda celda = celdas[x][y].getCelda();
+                        String mina = celda.getEstado();
+                        if (!celda.isMina()) {
+                            int numero = celda.getMinasAdyacentes();
+                            celdas[x][y] = new CeldaNumero();
+                            celdas[x][y].setCelda(celda);
+                            celdas[x][y].configurarCelda(numero + 1);
                         }
                     }
                 }
@@ -109,8 +113,9 @@ public class Cuadricula {
     public void inicializarNumeros() {
         for (int i = 0; i < numeroCeldas; i++) {
             for (int j = 0; j < numeroCeldas; j++) {
-                Celda temp = celdas[i][j];
-                if (temp.isMina()) {
+                CeldaBuilder celdaBuilder = celdas[i][j];
+                Celda celda = celdaBuilder.getCelda();
+                if (celda.isMina()) {
                     minasAdyacentes(i, j);
                 }
             }
@@ -123,7 +128,7 @@ public class Cuadricula {
     private void imprimirCuadricula() {
         for (int i = 0; i < numeroCeldas; i++) {
             for (int j = 0; j < numeroCeldas; j++) {
-                System.out.print(celdas[i][j].getMinasAdyacentes() + " ");
+                System.out.print(celdas[i][j].getCelda().getMinasAdyacentes() + " ");
             }
             System.out.println();
         }

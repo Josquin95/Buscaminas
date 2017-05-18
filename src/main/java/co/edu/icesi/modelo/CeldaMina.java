@@ -1,10 +1,10 @@
 package co.edu.icesi.modelo;
 
-public class CeldaMina extends Celda {
+public class CeldaMina extends CeldaBuilder {
 
-    //----------------------------------------------
-    // CONSTANTE
-    //----------------------------------------------
+    //-----------------------------------------------
+    // CONSTANTES
+    //-----------------------------------------------
     /**
      * Constante con el estado de la celda (MINA)
      */
@@ -16,46 +16,21 @@ public class CeldaMina extends Celda {
     public final static boolean TIENE_MINA = true;
 
     /**
-     * Constante identificando si la celda no tiene una mina
+     * Numero de minas adyacentes
      */
-    public final static boolean NO_TIENE_MINA = false;
-
-    //----------------------------------------------
-    // PROPIEDADES
-    //----------------------------------------------
-    /**
-     * Determina si la celda contiene una mina
-     */
-    private boolean mina;
-
-    //----------------------------------------------
-    // CONSTRUCTOR
-    //----------------------------------------------
-
-    /**
-     * Constructor de la clase celdeMina
-     */
-    public CeldaMina() {
-        setEstado(ESTADO_MINA);
-        setMina(TIENE_MINA);
-    }
+    public final static int ADYANCENTES = 9;
 
     //-----------------------------------------------
     // SERVICIOS
     //-----------------------------------------------
 
     /**
-     * @return boolean que determina si la celda contiene una mina
+     * Configura una celda segun su tipo
      */
-    public boolean isMina() {
-        return mina;
+    @Override
+    public void configurarCelda(int numero) {
+        celda.setMina(TIENE_MINA);
+        celda.setMinasAdyacentes(ADYANCENTES);
+        celda.setEstado(ESTADO_MINA);
     }
-
-    /**
-     * @param tieneMina cambia el estado de la celda
-     */
-    public void setMina(boolean tieneMina) {
-        this.mina = tieneMina;
-    }
-
 }

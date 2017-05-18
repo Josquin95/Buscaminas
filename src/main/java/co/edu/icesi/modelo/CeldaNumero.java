@@ -1,6 +1,6 @@
 package co.edu.icesi.modelo;
 
-public class CeldaNumero extends Celda {
+public class CeldaNumero extends CeldaBuilder {
 
     //-------------------------------------------------
     // CONSTANTES
@@ -11,38 +11,23 @@ public class CeldaNumero extends Celda {
      */
     public final static String ESTADO_NUMERO = "NUMERO";
 
+    /**
+     * Constante indentificando si la celda no tiene una mina
+     */
+    public final static boolean NO_TIENE_MINA = false;
+
     //-------------------------------------------------
     // PROPIEDADES
     //-------------------------------------------------
 
     /**
-     * Numero de minas adyacentes que contiene la celda
+     * Configura una celda segun su tipo
      */
-    private int minasAdyacentes;
-
-    //-------------------------------------------------
-    // CONSTRUCTOR
-    //-------------------------------------------------
-
-    /**
-     * Constructor de la clase celda numero
-     */
-    public CeldaNumero() {
-        setEstado(ESTADO_NUMERO);
-    }
-
-    /**
-     * @return Numero de minas adyacentes
-     */
-    public int getMinasAdyacentes() {
-        return minasAdyacentes;
-    }
-
-    /**
-     * @param minasAdyacentes numero de minas a cambiar
-     */
-    public void setMinasAdyacentes(int minasAdyacentes) {
-        this.minasAdyacentes = minasAdyacentes;
+    @Override
+    public void configurarCelda(int numero) {
+        celda.setEstado(ESTADO_NUMERO);
+        celda.setMina(NO_TIENE_MINA);
+        celda.setMinasAdyacentes(numero);
     }
 
 }
