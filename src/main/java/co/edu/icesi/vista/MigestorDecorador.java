@@ -8,10 +8,14 @@ import java.awt.event.ActionListener;
  */
 public class MigestorDecorador implements ActionListener {
 
-
-
+  private InterfazJugador interfazJugador;
+ public MigestorDecorador(InterfazJugador interfaz){
+     this.interfazJugador=interfaz;
+ }
     @Override
     public void actionPerformed(ActionEvent e) {
+    if(e.getSource()==interfazJugador.getItemPrimero()){
 
+    }
     }
 }
