@@ -59,7 +59,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelSuperior.add(new JLabel("Panel Superior"));
         add(panelSuperior, BorderLayout.NORTH);
 
-        panelTablero = new PanelTablero(modelo.getCuadricula().getNumeroCeldas()); // TODO cambiar luego
+        panelTablero = new PanelTablero(modelo.getCuadricula().getNumeroCeldas(),modelo); // TODO cambiar luego
         add(panelTablero, BorderLayout.CENTER);
 
         panelEstado = new PanelEstado(this);
