@@ -67,6 +67,8 @@ public class Tiempo extends Thread {
         //min es minutos, seg es segundos y mil es milesimas de segundo
         String min = "", seg = "", mil = "";
         try {
+            //Cuando se reincie se coloca nuevamente en 00:00:000
+            setCronometro("00:00:000");
             while (activo) {
                 Thread.sleep(4);
                 //Incrementamos 4 milesimas de segundo
@@ -102,8 +104,7 @@ public class Tiempo extends Thread {
             }
         } catch (Exception e) {
         }
-        //Cuando se reincie se coloca nuevamente en 00:00:000
-        setCronometro("00:00:000");
+
     }
 
     /**

@@ -67,6 +67,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
      */
     public InterfazJugador(Tablero modelo) {
         this.modelo = modelo;
+        modelo.attach(this);
         setTitle(NOMBRE_APP);
         setSize(ANCHO, LARGO);
         setResizable(false); // No se pemite la modificacion del tamaño
@@ -124,6 +125,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
     @Override
     public void update() {
         panelTablero.refrescarBotones(modelo);
+        panelEstado.setTxtTiempo(modelo.getTiempo());
     }
 
     public JMenuItem getItemPrimero() {

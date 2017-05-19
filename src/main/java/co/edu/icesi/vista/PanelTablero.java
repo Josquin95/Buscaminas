@@ -67,7 +67,7 @@ public class PanelTablero extends JPanel {
         btnCasillas = new BotonCuadricula[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
-                btnCasillas[i][j] = new BotonCuadricula(i, j);
+                btnCasillas[i][j] = new BotonCuadricula(i, j, numeroBotones);
                 btnCasillas[i][j].setActionCommand("CELDA[" + i + " " + j + "]");
                 add(btnCasillas[i][j]);
             }
@@ -103,6 +103,8 @@ public class PanelTablero extends JPanel {
                 }
                 if (etiqueta == 0 && destapada) {
                     btnCasillas[i][j].setText("");
+                    btnCasillas[i][j].setIcon(null);
+                    btnCasillas[i][j].setEnabled(true);
                 }
                 if (etiqueta == 1 && destapada) {
                     btnCasillas[i][j].setText("B");
@@ -110,22 +112,17 @@ public class PanelTablero extends JPanel {
                 if (etiqueta == 2 && destapada) {
                     btnCasillas[i][j].setText("I");
                 }
-
-
-
             }
         }
     }
 
-    public void refrescarTablero(Tablero tablero){
-
+    public void refrescarTablero(Tablero tablero) {
         for (int i = 0; i < numeroBotones; i++) {
-            for (int j = 0; j < numeroBotones; j++){
-                tablero.getCuadricula().obtenerCelda(i, j).setTapada(true);
-
-
+            for (int j = 0; j < numeroBotones; j++) {
+                tablero.taparCeldas(i, j);
+                refrescarBotones(tablero);
             }
         }
-        }
+    }
 }
 

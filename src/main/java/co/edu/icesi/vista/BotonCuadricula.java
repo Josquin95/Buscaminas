@@ -78,6 +78,8 @@ public class BotonCuadricula extends JButton {
      */
     private ImageIcon image;
 
+    private int size;
+
     //------------------------------------------
     // CONSTRUCTOR
     //------------------------------------------
@@ -88,9 +90,10 @@ public class BotonCuadricula extends JButton {
      * @param posX posicion fila del boton
      * @param posY posicion columna del boton
      */
-    public BotonCuadricula(int posX, int posY) {
+    public BotonCuadricula(int posX, int posY, int size) {
         this.posX = posX;
         this.posY = posY;
+        this.size = size;
     }
 
     //-------------------------------------------
@@ -135,7 +138,8 @@ public class BotonCuadricula extends JButton {
                     ruta = MINE;
                     break;
             }
-            image = new ImageIcon(((new ImageIcon(ruta).getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH))));
+            int longitud = (int) ((double) (512 / size));
+            image = new ImageIcon(((new ImageIcon(ruta).getImage().getScaledInstance(longitud, longitud, java.awt.Image.SCALE_SMOOTH))));
             this.setIcon(image);
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -33,7 +33,6 @@ public class ControlJuego implements MouseListener {
     }
 
     public void iniciarVista() {
-        //view.pack();
         view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         view.setLocationRelativeTo(null);
         view.setVisible(true);
@@ -42,41 +41,47 @@ public class ControlJuego implements MouseListener {
     public static void main(String args[]) {
         Tablero model = new Tablero(true);
         InterfazJugador view = new InterfazJugador(model);
+        model.attach(view);
         ControlJuego control = new ControlJuego(view, model);
         control.iniciarVista();
-
+        model.iniciarTiempo();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        BotonCuadricula boton = (BotonCuadricula) e.getComponent();
-        int posX = boton.getPosX();
-        int posY = boton.getPosY();
-        int etiqueta = model.getEtiqueta(posX, posY);
 
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            if (etiqueta == 0) {
-                model.destaparVacias(posX, posY);
-                model.destaparCelda(posX, posY);
-            }
-        }
-        if (e.getButton() == MouseEvent.BUTTON3) {
-            if (etiqueta == 0) {
-                model.setEtiqueta(Celda.BANDERA, posX, posY);
-            }
-            if (etiqueta == 1) {
-                model.setEtiqueta(Celda.INTERROGANTE, posX, posY);
-            }
-            if (etiqueta == 2) {
-                model.setEtiqueta(Celda.SIN_ETIQUETA, posX, posY);
-            }
-        }
-        view.update();
-        if (model.finJuego(posX, posY)) {
-            System.out.println("Game Over");
-        }
+        if (e.getComponent() instanceof JButton) {
 
-        view.update();
+        }
+        if (e.getComponent() instanceof BotonCuadricula) {
+            BotonCuadricula boton = (BotonCuadricula) e.getComponent();
+            int posX = boton.getPosX();
+            int posY = boton.getPosY();
+            int etiqueta = model.getEtiqueta(posX, posY);
+
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (etiqueta == 0) {
+                    model.destaparVacias(posX, posY);
+                    model.destaparCelda(posX, posY);
+                }
+            }
+            if (e.getButton() == MouseEvent.BUTTON3) {
+                if (etiqueta == 0) {
+                    model.setEtiqueta(Celda.BANDERA, posX, posY);
+                }
+                if (etiqueta == 1) {
+                    model.setEtiqueta(Celda.INTERROGANTE, posX, posY);
+                }
+                if (etiqueta == 2) {
+                    model.setEtiqueta(Celda.SIN_ETIQUETA, posX, posY);
+                }
+            }
+            model.notifyAllObservers();
+            if (model.finJuego(posX, posY)) {
+                System.out.println("Game Over");
+            }
+        }
+        model.notifyAllObservers();
     }
 
     @Override
