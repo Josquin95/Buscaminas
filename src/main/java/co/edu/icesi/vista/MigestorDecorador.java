@@ -40,5 +40,21 @@ public class MigestorDecorador implements ActionListener {
             SwingUtilities.updateComponentTreeUI(interfazJugador);
             interfazJugador.validate();
         }
+
+
+        if (e.getSource() == interfazJugador.getReiniciar()) {
+
+           interfazJugador.setPanelTablero(interfazJugador.getCopiaModelo().getTableroGuardado());
+            interfazJugador.getPanelTablero().refrescarTablero(interfazJugador.getModelo());
+
+
+
+
+            interfazJugador.update();
+
+
+        }
+
+
     }
 }
