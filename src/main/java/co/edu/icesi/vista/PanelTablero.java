@@ -116,5 +116,16 @@ public class PanelTablero extends JPanel {
             }
         }
     }
+
+    public void refrescarTablero(Tablero tablero){
+
+        for (int i = 0; i < numeroBotones; i++) {
+            for (int j = 0; j < numeroBotones; j++){
+                tablero.getCuadricula().obtenerCelda(i, j).setTapada(true);
+
+
+            }
+        }
+        }
 }
 
