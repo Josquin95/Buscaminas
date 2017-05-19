@@ -14,9 +14,7 @@ public Memento(PanelTablero inicial){
     this.tableroGuardado=inicial;
 }
 
-    public PanelTablero getTableroGuardado() {
-        return tableroGuardado;
-    }
+    public PanelTablero getTableroGuardado() {return tableroGuardado;}
 
     public void setTableroGuardado(PanelTablero tableroGuardado) {
         this.tableroGuardado = tableroGuardado;
