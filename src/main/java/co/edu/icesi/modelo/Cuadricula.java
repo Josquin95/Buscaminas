@@ -105,20 +105,22 @@ public abstract class Cuadricula {
      * una vez seleccionada una determinada casilla vacia.
      *
      * @param arr matriz de celdas
-     * @param x   posicion de fila de la celda en la cuadricula.
-     * @param y   posicion de columna de la celda en la cuadricula.
+     * @param r   posicion de fila de la celda en la cuadricula.
+     * @param c   posicion de columna de la celda en la cuadricula.
      */
-    public void fillGrid(CeldaBuilder[][] arr, int x, int y) {
-        int r = 0;
-        int c = 0;
-        Celda celda = arr[x][y].getCelda();
-        if (celda.isMina()) {
-            /* arr[r][c] = 'W'; */
-
-            fillGrid(arr, r + 1, c);
-            fillGrid(arr, r - 1, c);
-            fillGrid(arr, r, c + 1);
-            fillGrid(arr, r, c - 1);
+    public void fillGrid(CeldaBuilder[][] arr, int r, int c) {
+        if (r >= 0 && r < numeroCeldas) {
+            if (c >= 0 && c < numeroCeldas) {
+                int numeroMinas = obtenerCelda(r, c).getMinasAdyacentes();
+                boolean tapada = arr[r][c].getCelda().isTapada();
+                if (numeroMinas == 0 && tapada) {
+                    arr[r][c].getCelda().setTapada(false);
+                    fillGrid(arr, r + 1, c);
+                    fillGrid(arr, r - 1, c);
+                    fillGrid(arr, r, c + 1);
+                    fillGrid(arr, r, c - 1);
+                }
+            }
         }
     }
 

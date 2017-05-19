@@ -41,10 +41,13 @@ public class ControlJuego implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         String comando = e.getActionCommand();
-        for (int i = 0; i < model.getNumeroCeldas(); i++) {
-            for (int j = 0; j < model.getNumeroCeldas(); j++) {
+        boolean salir = false;
+        for (int i = 0; i < model.getNumeroCeldas() && !salir; i++) {
+            for (int j = 0; j < model.getNumeroCeldas() && !salir; j++) {
                 if (comando.equals("CELDA[" + i + " " + j + "]")) {
+                    model.destaparVacias(i, j);
                     model.destaparCelda(i, j);
+                    salir = true;
                 }
             }
         }
