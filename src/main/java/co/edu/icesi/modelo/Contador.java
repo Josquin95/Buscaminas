@@ -11,7 +11,6 @@ public class Contador extends Thread {
      */
     private static Contador INSTANCIA = null;
 
-
     /**
      * Numero de minas que hay en el juego
      */

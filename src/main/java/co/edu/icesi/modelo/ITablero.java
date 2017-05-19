@@ -21,7 +21,7 @@ public interface ITablero {
 
     public String getTiempo();
 
-    public void iniciarJuego();
+    public void iniciarJuego(int i);
 
     public int getNumeroCeldas();
 
@@ -29,7 +29,7 @@ public interface ITablero {
 
     public int getEtiqueta(int x, int y);
 
-    public boolean isCeldaTapada(int x, int y);
+    public boolean isCeldaTapada(boolean celda, int x, int y);
 
     public void destaparCelda(int x, int y);
 
@@ -40,5 +40,13 @@ public interface ITablero {
     public void notify(InterfazBuscaMinas observer);
 
     public void notifyAllObservers();
+
+    public void stopTimer();
+
+    public void actualizarContador();
+
+    public Contador getContador();
+
+    public void setTamamnio(int numero);
 
 }

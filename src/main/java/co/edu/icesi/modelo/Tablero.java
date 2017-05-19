@@ -35,6 +35,8 @@ public class Tablero implements ITablero {
      */
     private ArrayList<InterfazBuscaMinas> observers;
 
+    private int numeroCeldas;
+
     //---------------------------------------------
     // CONSTRUCTOR
     //---------------------------------------------
@@ -104,9 +106,12 @@ public class Tablero implements ITablero {
         return tiempo.getCronometro();
     }
 
+
     @Override
-    public void iniciarJuego() {
-        contador = Contador.getInstancia();
+    public void iniciarJuego(int numeroCeldas) {
+        cuadricula = new Cuadricula(numeroCeldas);
+        cuadricula.inicializarCeldas();
+        cuadricula.inicializarNumeros();
     }
 
     @Override
@@ -125,8 +130,8 @@ public class Tablero implements ITablero {
     }
 
     @Override
-    public boolean isCeldaTapada(int x, int y) {
-        return cuadricula.obtenerCelda(false, x, y).isTapada();
+    public boolean isCeldaTapada(boolean celda, int x, int y) {
+        return cuadricula.obtenerCelda(celda, x, y).isTapada();
     }
 
     @Override
@@ -155,6 +160,43 @@ public class Tablero implements ITablero {
         for (InterfazBuscaMinas observer : observers) {
             observer.update();
         }
+    }
+
+    public void notifyReinicio() {
+        for (InterfazBuscaMinas observer : observers) {
+            //  observer.refrescarPanelTablero();
+        }
+    }
+
+    public Contador getContador() {
+        return contador;
+    }
+
+    public void actualizarContador() {
+        int banderas = 0;
+        int destapadas = 0;
+        int minas = 0;
+        for (int i = 0; i < getNumeroCeldas(); i++) {
+            for (int j = 0; j < getNumeroCeldas(); j++) {
+                Celda celda = cuadricula.obtenerCelda(false, i, j);
+                banderas += (celda.getEtiqueta() == 1) ? 1 : 0;
+                destapadas += (celda.isTapada() == false) ? 1 : 0;
+            }
+
+        }
+        minas = cuadricula.ratioMinas();
+        contador.setBanderas(banderas);
+        contador.setDestapadas(destapadas);
+        contador.setMinas(minas);
+    }
+
+    public void stopTimer() {
+        tiempo.setActivo(false);
+    }
+
+    public void setTamamnio(int numero) {
+        this.numeroCeldas = numero;
+        cuadricula.setNumeroCeldas(numero);
     }
 
 }

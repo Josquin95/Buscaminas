@@ -71,8 +71,11 @@ public class PanelTablero extends JPanel {
      * del panel tablero para el juego buscaminas
      * @param numeroBotones longitud de la matriz de botones
      */
-    private void inicializarPanel(int numeroBotones, ITablero tablero) {
+    public void inicializarPanel(int numeroBotones, ITablero tablero) {
+        removeAll();
         setSize(LARGO, ANCHO);
+        this.numeroBotones = numeroBotones;
+        setLayout(new GridLayout(numeroBotones, numeroBotones));
         btnCasillas = new BotonCuadricula[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
@@ -81,7 +84,8 @@ public class PanelTablero extends JPanel {
                 add(btnCasillas[i][j]);
             }
         }
-        refrescarBotones(tablero);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -107,12 +111,11 @@ public class PanelTablero extends JPanel {
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
                 int etiqueta = tablero.getEtiqueta(i, j);
-                boolean destapada = tablero.isCeldaTapada(i, j);
+                boolean destapada = tablero.isCeldaTapada(espectador, i, j);
                 int numero = tablero.ObternerValorCelda(espectador, i, j);
                 String valor = (numero == 0) ? " " : numero + "";
                 if (!destapada && etiqueta == 0) {
                     btnCasillas[i][j].setEnabled(destapada);
-                    // btnCasillas[i][j].setText(valor);
                     btnCasillas[i][j].setImageJuego(numero);
                 }
                 if (etiqueta == 0 && destapada) {
@@ -126,6 +129,8 @@ public class PanelTablero extends JPanel {
                 if (etiqueta == 2 && destapada) {
                     btnCasillas[i][j].setText("I");
                 }
+
+                tablero.actualizarContador();
             }
         }
     }

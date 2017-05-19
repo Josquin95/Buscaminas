@@ -3,6 +3,7 @@ package co.edu.icesi.vista;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 /**
@@ -31,7 +32,7 @@ public class PanelEstado extends JPanel {
     /**
      * Constante con la etiqueta de celdas destapadas
      */
-    public final static String DESTAPADAS = "CELDAS DESTAPADAS: ";
+    public final static String DESTAPADAS = "DESTAPADAS: ";
 
     /**
      * Constante con el tiempo cero
@@ -75,7 +76,7 @@ public class PanelEstado extends JPanel {
     /**
      * Numero de minas
      */
-    private JTextField txtMinas;
+    private JLabel txtMinas;
 
     /**
      * Etiqueta para la cantidad de celdas destapadas
@@ -85,7 +86,7 @@ public class PanelEstado extends JPanel {
     /**
      * Numero de casillas destapadas
      */
-    private JTextField txtDestapadas;
+    private JLabel txtDestapadas;
 
     /**
      * Etiqueta para la cantidad de banderas
@@ -95,7 +96,7 @@ public class PanelEstado extends JPanel {
     /**
      * Numero de banderas
      */
-    private JTextField txtBanderas;
+    private JLabel txtBanderas;
 
     /**
      * Etiqueta para la dificultad
@@ -103,9 +104,9 @@ public class PanelEstado extends JPanel {
     private JLabel lbDificultad;
 
     /**
-     * Checklist con una lista de dificultad del juego
+     * ComboBox con una lista de dificultad del juego
      */
-    private JList lstDificultad;
+    private JComboBox lstDificultad;
 
     /**
      * Boton que inicia el juego
@@ -123,7 +124,7 @@ public class PanelEstado extends JPanel {
     //--------------------------------------------------------------
     public PanelEstado(InterfazJugador view) {
 
-        setLayout(new GridLayout(6, 2));
+        setLayout(new GridLayout(6, 2, 10, 50));
         setBorder(new TitledBorder("Estado: "));
         inicializarPanel();
     }
@@ -137,23 +138,48 @@ public class PanelEstado extends JPanel {
      */
     private void inicializarPanel() {
 
-        lbTiempo = new JLabel(TIEMPO);
+        lbTiempo = new JLabel(TIEMPO, SwingConstants.RIGHT);
+        lbTiempo.setFont(lbTiempo.getFont().deriveFont(25.0f));
         txtTiempo = new JLabel(TIEMPO_CERO);
+        txtTiempo.setFont(txtTiempo.getFont().deriveFont(25.0f));
         add(lbTiempo);
         add(txtTiempo);
 
-        // crearMarcadores(lbTiempo, TIEMPO, txtTiempo, TIEMPO_CERO);
-        crearMarcadores(lbMinas, MINAS, txtMinas, CONTADOR_CERO);
-        crearMarcadores(lbBanderas, BANDERAS, txtBanderas, CONTADOR_CERO);
-        crearMarcadores(lbDestapadas, DESTAPADAS, txtDestapadas, CONTADOR_CERO);
+        lbMinas = new JLabel(MINAS, SwingConstants.RIGHT);
+        lbMinas.setFont(lbMinas.getFont().deriveFont(15.0f));
+        txtMinas = new JLabel(CONTADOR_CERO);
+        txtMinas.setFont(txtMinas.getFont().deriveFont(15.0f));
+        add(lbMinas);
+        add(txtMinas);
+
+        lbBanderas = new JLabel(BANDERAS, SwingConstants.RIGHT);
+        lbBanderas.setFont(lbBanderas.getFont().deriveFont(15.0f));
+        txtBanderas = new JLabel(CONTADOR_CERO);
+        txtBanderas.setFont(txtBanderas.getFont().deriveFont(15.0f));
+        add(lbBanderas);
+        add(txtBanderas);
+
+        lbDestapadas = new JLabel(DESTAPADAS, SwingConstants.RIGHT);
+        lbDestapadas.setFont(lbDestapadas.getFont().deriveFont(15.0f));
+        txtDestapadas = new JLabel(CONTADOR_CERO);
+        txtDestapadas.setFont(txtDestapadas.getFont().deriveFont(15.0f));
+        add(lbDestapadas);
+        add(txtDestapadas);
 
         lbDificultad = new JLabel("DIFICULTAD");
         add(lbDificultad);
 
-        lstDificultad = new JList();
+        lstDificultad = new JComboBox();
+        lstDificultad.addItem("Muy Facil");
+        lstDificultad.addItem("Facil");
+        lstDificultad.addItem("Normal");
+        lstDificultad.addItem("Dificil");
+        lstDificultad.addItem("Muy Dificil");
         add(lstDificultad);
 
+
         btnIniciar = new JButton("Iniciar");
+
         btnIniciar.setActionCommand(INICIAR);
         add(btnIniciar);
 
@@ -162,27 +188,9 @@ public class PanelEstado extends JPanel {
         add(btnCancelar);
     }
 
-    /**
-     * Crea la etiqueta y su respectivo marcador
-     *
-     * @param label     JLabel que se desea crear e inicializar
-     * @param lbNombre  Nombre de la etiqueta
-     * @param txtfiel   JTextField que se desea crear e inciializar, el txtfield no puede
-     *                  ser editable por el usuario
-     * @param txtNombre Nomnde del textfiel
-     */
-    private void crearMarcadores(JLabel label, String lbNombre, JTextField txtfiel, String txtNombre) {
-        label = new JLabel(lbNombre);
-        txtfiel = new JTextField(txtNombre);
-        txtfiel.setEditable(false);
-
-        this.add(label);
-        this.add(txtfiel);
-    }
-
-    public void addActionListener(MouseListener mouseListener) {
-        btnIniciar.addMouseListener(mouseListener);
-        btnCancelar.addMouseListener(mouseListener);
+    public void addActionListener(MouseListener mouseListener, ActionListener actionListener) {
+        btnIniciar.addActionListener(actionListener);
+        btnCancelar.addActionListener(actionListener);
     }
 
     public String getTxtTiempo() {
@@ -215,6 +223,10 @@ public class PanelEstado extends JPanel {
 
     public void setTxtBanderas(String txtBanderas) {
         this.txtBanderas.setText(txtBanderas);
+    }
+
+    public String selectItem() {
+        return (String) lstDificultad.getSelectedItem();
     }
 
 

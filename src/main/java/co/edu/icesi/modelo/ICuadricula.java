@@ -84,5 +84,7 @@ public interface ICuadricula {
 
     public void destaparCelda(int x, int y);
 
+    public void setNumeroCeldas(int numeroCeldas);
+
 
 }

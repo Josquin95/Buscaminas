@@ -37,7 +37,11 @@ public class Cuadricula implements ICuadricula, Cloneable {
     public Cuadricula() {
         this.numeroCeldas = NUMERO_DEFECTO_CASILLAS;
         inicializarCeldas();
-        crearMinas();
+    }
+
+    public Cuadricula(int numeroCeldas) {
+        this.numeroCeldas = numeroCeldas;
+        inicializarCeldas();
     }
 
     /**
@@ -59,6 +63,7 @@ public class Cuadricula implements ICuadricula, Cloneable {
 
             }
         }
+        crearMinas();
     }
 
     /**
@@ -207,6 +212,10 @@ public class Cuadricula implements ICuadricula, Cloneable {
 
         celdaBuilder = celdasEspectador[x][y];
         celdaBuilder.getCelda().setTapada(false);
+    }
+
+    public void setNumeroCeldas(int numeroCeldas) {
+        this.numeroCeldas = numeroCeldas;
     }
 
 }

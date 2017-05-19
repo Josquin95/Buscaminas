@@ -4,6 +4,7 @@ import co.edu.icesi.modelo.ITablero;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 /**
@@ -89,6 +90,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
      */
     private ITablero modelo;
 
+
     //----------------------------------------------------------------------
     // CONSTRUCTOR
     //----------------------------------------------------------------------
@@ -103,7 +105,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         setSize(ANCHO, LARGO);
         setResizable(false); // No se pemite la modificacion del tamaño
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         this.barraMenu = new JMenuBar();
         this.menuConfiguracion = new JMenu("Configuración aspecto");
@@ -115,6 +117,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.itemTercero = new JMenuItem("Opción 3");
 
         construirPaneles(modelo, espectador);
+
     }
 
     /**
@@ -152,8 +155,8 @@ public class InterfazJugador extends InterfazBuscaMinas {
      * Agrega la accion al panel
      * @param mouseListener Accion del mouse
      */
-    public void addAction(MouseListener mouseListener) {
-        panelEstado.addActionListener(mouseListener);
+    public void addAction(MouseListener mouseListener, ActionListener actionListener) {
+        panelEstado.addActionListener(mouseListener, actionListener);
         panelTablero.addAction(mouseListener);
     }
 
@@ -164,6 +167,30 @@ public class InterfazJugador extends InterfazBuscaMinas {
     public void update() {
         panelTablero.refrescarBotones(modelo);
         panelEstado.setTxtTiempo(modelo.getTiempo());
+        panelEstado.setTxtMinas(modelo.getContador().getMinas() + "");
+        panelEstado.setTxtBanderas(modelo.getContador().getBanderas() + "");
+        panelEstado.setTxtDestapadas(modelo.getContador().getDestapadas() + "");
+    }
+
+    public void iniciarJuego() {
+        String seleccion = panelEstado.selectItem();
+        if (seleccion.equals("Muy Facil")) {
+            modelo.setTamamnio(8);
+        }
+        if (seleccion.equals("Facil")) {
+            modelo.setTamamnio(9);
+        }
+        if (seleccion.equals("Normal")) {
+            modelo.setTamamnio(10);
+        }
+        if (seleccion.equals("Dificil")) {
+            modelo.setTamamnio(15);
+        }
+        if (seleccion.equals("Muy Dificil")) {
+            modelo.setTamamnio(20);
+        }
+        modelo.iniciarJuego(9);
+        refrescarPanelTablero();
     }
 
     public JMenuItem getItemPrimero() {
@@ -172,6 +199,10 @@ public class InterfazJugador extends InterfazBuscaMinas {
 
     public JMenuItem getItemSegundo() {
         return itemSegundo;
+    }
+
+    public JMenuItem getItemTercero() {
+        return itemTercero;
     }
 
     public Memento getCopiaModelo() {
@@ -192,5 +223,14 @@ public class InterfazJugador extends InterfazBuscaMinas {
 
     public ITablero getModelo() {
         return modelo;
+    }
+
+    public void refrescarPanelTablero() {
+        panelTablero.inicializarPanel(modelo.getNumeroCeldas(), modelo);
+    }
+
+    public void dispose() {
+        System.exit(0);
+        modelo.stopTimer();
     }
 }

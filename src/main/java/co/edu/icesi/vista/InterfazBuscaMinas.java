@@ -1,6 +1,7 @@
 package co.edu.icesi.vista;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 /**
@@ -12,5 +13,9 @@ public abstract class InterfazBuscaMinas extends JFrame  {
 
     public abstract void update();
 
-    public abstract void addAction(MouseListener mouseListener);
+    public abstract void addAction(MouseListener mouseListener, ActionListener actionListener);
+
+    public abstract void refrescarPanelTablero();
+
+    public abstract void iniciarJuego();
 }

@@ -7,10 +7,12 @@ import co.edu.icesi.vista.InterfazBuscaMinas;
 import co.edu.icesi.vista.InterfazJugador;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class ControlJuego implements MouseListener {
+public class ControlJuego implements MouseListener, ActionListener {
 
     /**
      * Interfaz del juego
@@ -28,7 +30,7 @@ public class ControlJuego implements MouseListener {
      */
     public ControlJuego(InterfazBuscaMinas view, Tablero model) {
         this.view = view;
-        this.view.addAction(this);
+        this.view.addAction(this, this);
         this.model = model;
     }
 
@@ -107,5 +109,20 @@ public class ControlJuego implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String comando = e.getActionCommand();
+        if (comando.equals("INICIAR")) {
+            model.iniciarJuego(9);
+            model.notifyReinicio();
+            view.addAction(this, this);
+            model.notifyAllObservers();
+
+        }
+        if (comando.equals("CANCELAR")) {
+
+        }
     }
 }
