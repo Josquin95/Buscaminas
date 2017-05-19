@@ -8,17 +8,17 @@ import co.edu.icesi.modelo.Tablero;
  */
 public class Memento {
 
-private Tablero tableroGuardado;
+private PanelTablero tableroGuardado;
 
-public Memento(Tablero inicial){
+public Memento(PanelTablero inicial){
     this.tableroGuardado=inicial;
 }
 
-    public Tablero getTableroGuardado() {
+    public PanelTablero getTableroGuardado() {
         return tableroGuardado;
     }
 
-    public void setTableroGuardado(Tablero tableroGuardado) {
+    public void setTableroGuardado(PanelTablero tableroGuardado) {
         this.tableroGuardado = tableroGuardado;
     }
 }
