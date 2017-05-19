@@ -154,6 +154,10 @@ public class InterfazJugador extends InterfazBuscaMinas {
 
     public JMenuItem getReiniciar() {return reiniciar;}
 
+    public JMenuItem getItemTercero() {
+        return itemTercero;
+    }
+
     public void setModelo(Tablero modelo) {
         this.modelo = modelo;
     }
