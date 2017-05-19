@@ -9,6 +9,11 @@ public class BotonCuadricula extends JButton {
 
 
     /**
+     * Constante de imagen cero
+     */
+    public final static String CERO = "src/main/resources/imagenes/cero.png";
+
+    /**
      * Constante de imagen uno
      */
     public final static String UNO = "src/main/resources/imagenes/uno.png";
@@ -99,6 +104,9 @@ public class BotonCuadricula extends JButton {
         try {
             String ruta = "";
             switch (valor) {
+                case 0:
+                    ruta = CERO;
+                    break;
                 case 1:
                     ruta = UNO;
                     break;
