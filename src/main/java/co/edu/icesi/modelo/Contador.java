@@ -11,10 +11,6 @@ public class Contador extends Thread {
      */
     private static Contador INSTANCIA = null;
 
-    /**
-     * Tiempo del juego
-     */
-    private Tiempo tiempo;
 
     /**
      * Numero de minas que hay en el juego
@@ -46,7 +42,6 @@ public class Contador extends Thread {
      */
     private Contador() {
         destapadas = 0;
-        tiempo = Tiempo.getInstancia();
         reiniciarMarcador();
     }
 
@@ -106,19 +101,8 @@ public class Contador extends Thread {
     }
 
     /**
-     * @return retorna el tiempo del juego
+     * @return numero de minas que tiene el juego
      */
-    public Tiempo getTiempo() {
-        return this.tiempo;
-    }
-
-    /**
-     * @param tiempo cambiar el tiempo del juego
-     */
-    public void setTiempo(Tiempo tiempo) {
-        this.tiempo = tiempo;
-    }
-
     public int getMinas() {
         return this.minas;
     }
@@ -130,6 +114,9 @@ public class Contador extends Thread {
         this.minas = minas;
     }
 
+    /**
+     * @return numero de banderas del juego
+     */
     public int getBanderas() {
         return this.banderas;
     }
@@ -141,6 +128,9 @@ public class Contador extends Thread {
         this.banderas = banderas;
     }
 
+    /**
+     * @return numero de celdas destapadas
+     */
     public int getDestapadas() {
         return this.destapadas;
     }

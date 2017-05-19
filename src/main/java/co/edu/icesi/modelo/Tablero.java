@@ -1,5 +1,9 @@
 package co.edu.icesi.modelo;
 
+import co.edu.icesi.vista.InterfazBuscaMinas;
+
+import java.util.ArrayList;
+
 public class Tablero implements ITablero {
 
     //---------------------------------------------
@@ -16,6 +20,9 @@ public class Tablero implements ITablero {
      */
     private Contador contador;
 
+    private Tiempo tiempo;
+
+    private ArrayList<InterfazBuscaMinas> observers;
 
     //---------------------------------------------
     // CONSTRUCTOR
@@ -31,7 +38,10 @@ public class Tablero implements ITablero {
         } else {
             cuadricula = new CuadriculaEspectador();
         }
+        observers = new ArrayList<>();
         contador = Contador.getInstancia();
+        tiempo = Tiempo.getInstancia();
+        tiempo.setTablero(this);
     }
 
     //------------------------------------------------------
@@ -48,8 +58,8 @@ public class Tablero implements ITablero {
     }
 
     @Override
-    public void attach() {
-
+    public void attach(InterfazBuscaMinas observer) {
+        observers.add(observer);
     }
 
     @Override
@@ -78,6 +88,15 @@ public class Tablero implements ITablero {
                 destaparCelda(i, j);
             }
         }
+    }
+
+    public void iniciarTiempo() {
+        tiempo.setActivo(true);
+        tiempo.run();
+    }
+
+    public String getTiempo() {
+        return tiempo.getCronometro();
     }
 
     @Override
@@ -110,6 +129,16 @@ public class Tablero implements ITablero {
     @Override
     public int ObternerValorCelda(int i, int j) {
         return cuadricula.obtenerCelda(i, j).getMinasAdyacentes();
+    }
+
+    public void notify(InterfazBuscaMinas observer) {
+        observer.update();
+    }
+
+    public void notifyAllObservers() {
+        for (InterfazBuscaMinas observer : observers) {
+            observer.update();
+        }
     }
 
 }
