@@ -27,7 +27,7 @@ public class PanelTablero extends JPanel {
     /**
      * Matriz de botones.
      */
-    private JButton[][] btnCasillas;
+    private BotonCuadricula[][] btnCasillas;
 
     /**
      * Interfaz principal que se encarga de visualizar toda la informacion
@@ -64,7 +64,7 @@ public class PanelTablero extends JPanel {
      */
     private void inicializarPanel(int numeroBotones, Tablero tablero) {
         setSize(LARGO, ANCHO);
-        btnCasillas = new JButton[numeroBotones][numeroBotones];
+        btnCasillas = new BotonCuadricula[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
                 btnCasillas[i][j] = new BotonCuadricula(i, j);
@@ -98,7 +98,9 @@ public class PanelTablero extends JPanel {
                 String valor = (numero == 0) ? " " : numero + "";
                 if (!destapada && etiqueta == 0) {
                     btnCasillas[i][j].setEnabled(destapada);
+                    // btnCasillas[i][j].setBackground(Color.darkGray);
                     btnCasillas[i][j].setText(valor);
+                    //btnCasillas[i][j].setImageJuego(numero);
                 }
                 if (etiqueta == 0 && destapada) {
                     btnCasillas[i][j].setText("");

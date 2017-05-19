@@ -72,6 +72,11 @@ public class ControlJuego implements MouseListener {
             }
         }
         view.update();
+        if (model.finJuego(posX, posY)) {
+            System.out.println("Game Over");
+        }
+
+        view.update();
     }
 
     @Override

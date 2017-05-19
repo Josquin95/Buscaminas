@@ -1,7 +1,9 @@
 package co.edu.icesi.vista;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 /**
  * Created by CarlosTorres on 18/05/2017.
@@ -17,7 +19,7 @@ public class MigestorDecorador implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /** if (e.getSource() == interfazJugador.getItemPrimero()) {
+        if (e.getSource() == interfazJugador.getItemPrimero()) {
             try {
                 UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
             } catch (Exception u) {
@@ -37,6 +39,6 @@ public class MigestorDecorador implements ActionListener {
 
             SwingUtilities.updateComponentTreeUI(interfazJugador);
             interfazJugador.validate();
-         }**/
+        }
     }
 }

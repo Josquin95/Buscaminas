@@ -45,6 +45,7 @@ public class Contador extends Thread {
      * contador y reinicia los marcadores
      */
     private Contador() {
+        destapadas = 0;
         tiempo = Tiempo.getInstancia();
         reiniciarMarcador();
     }

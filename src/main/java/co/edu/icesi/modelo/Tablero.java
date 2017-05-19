@@ -31,6 +31,7 @@ public class Tablero implements ITablero {
         } else {
             cuadricula = new CuadriculaEspectador();
         }
+        contador = Contador.getInstancia();
     }
 
     //------------------------------------------------------
@@ -62,11 +63,21 @@ public class Tablero implements ITablero {
         Celda celda = cuadricula.obtenerCelda(x, y);
         if (celda.getMinasAdyacentes() == 9 && celda.isTapada() == false) {
             fin = true;
+            bloquearTablero();
         }
         if (contador.getDestapadas() == (getNumeroCeldas() - cuadricula.ratioMinas())) {
             fin = true;
+            bloquearTablero();
         }
         return fin;
+    }
+
+    public void bloquearTablero() {
+        for (int i = 0; i < getNumeroCeldas(); i++) {
+            for (int j = 0; j < getNumeroCeldas(); j++) {
+                destaparCelda(i, j);
+            }
+        }
     }
 
     @Override
