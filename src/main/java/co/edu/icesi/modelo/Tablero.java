@@ -74,10 +74,12 @@ public class Tablero implements ITablero {
         if (celda.getMinasAdyacentes() == 9 && celda.isTapada() == false) {
             fin = true;
             bloquearTablero();
+            tiempo.setActivo(false);
         }
         if (contador.getDestapadas() == (getNumeroCeldas() - cuadricula.ratioMinas())) {
             fin = true;
             bloquearTablero();
+            tiempo.setActivo(false);
         }
         return fin;
     }
@@ -126,8 +128,8 @@ public class Tablero implements ITablero {
         cuadricula.obtenerCelda(x, y).setTapada(false);
     }
 
-    public void setCuadricula(Cuadricula cuadricula) {
-        this.cuadricula = cuadricula;
+    public void taparCeldas(int x, int y) {
+        cuadricula.obtenerCelda(x, y).setTapada(true);
     }
 
     @Override

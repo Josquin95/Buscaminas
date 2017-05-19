@@ -65,7 +65,7 @@ public class PanelEstado extends JPanel {
     /**
      * Tiempo que transcurre en el juego
      */
-    private JTextField txtTiempo;
+    private JLabel txtTiempo;
 
     /**
      * Etiqueta para la cantidad de minas
@@ -117,16 +117,11 @@ public class PanelEstado extends JPanel {
      */
     private JButton btnCancelar;
 
-    /**
-     * Conexion con el Jframe
-     */
-    private InterfazBuscaMinas view;
 
     //--------------------------------------------------------------
     // CONSTRUCTOR
     //--------------------------------------------------------------
-    public PanelEstado(InterfazBuscaMinas view) {
-        this.view = view;
+    public PanelEstado(InterfazJugador view) {
 
         setLayout(new GridLayout(6, 2));
         setBorder(new TitledBorder("Estado: "));
@@ -141,8 +136,13 @@ public class PanelEstado extends JPanel {
      * Se crea e inicializa todos los componentes del panel de estado
      */
     private void inicializarPanel() {
-        txtTiempo = new JTextField();
-        crearMarcadores(lbTiempo, TIEMPO, txtTiempo, TIEMPO_CERO);
+
+        lbTiempo = new JLabel(TIEMPO);
+        txtTiempo = new JLabel(TIEMPO_CERO);
+        add(lbTiempo);
+        add(txtTiempo);
+
+        // crearMarcadores(lbTiempo, TIEMPO, txtTiempo, TIEMPO_CERO);
         crearMarcadores(lbMinas, MINAS, txtMinas, CONTADOR_CERO);
         crearMarcadores(lbBanderas, BANDERAS, txtBanderas, CONTADOR_CERO);
         crearMarcadores(lbDestapadas, DESTAPADAS, txtDestapadas, CONTADOR_CERO);
