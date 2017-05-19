@@ -41,6 +41,8 @@ public class Tiempo extends Thread {
 
     private boolean activo;
 
+    private Tablero model;
+
     //---------------------------------------------
     // CONSTRUCTOR
     //---------------------------------------------
@@ -96,6 +98,7 @@ public class Tiempo extends Thread {
 
                 //Colocamos en la etiqueta la informacion
                 setCronometro(min + ":" + seg + ":" + mil);
+                model.notifyAllObservers();
             }
         } catch (Exception e) {
         }
@@ -116,7 +119,9 @@ public class Tiempo extends Thread {
      * @return retorna la instancia del contador
      */
     public static Tiempo getInstancia() {
-        if (INSTANCIA == null) createInstancia();
+        if (INSTANCIA == null) {
+            createInstancia();
+        }
         return INSTANCIA;
     }
 
@@ -135,6 +140,10 @@ public class Tiempo extends Thread {
                 }
             }
         }
+    }
+
+    public void setTablero(Tablero model) {
+        this.model = model;
     }
 
     /**

@@ -1,5 +1,7 @@
 package co.edu.icesi.modelo;
 
+import co.edu.icesi.vista.InterfazBuscaMinas;
+
 /**
  * Created by Josquin on 18/05/2017.
  */
@@ -18,7 +20,7 @@ public interface ITablero {
     /**
      * Marca cuando debe actualizarse las interfaces de la vista
      */
-    public void attach();
+    public void attach(InterfazBuscaMinas observer);
 
     /**
      * Algoritmo que destapa las celdas vacias dada una posicion
