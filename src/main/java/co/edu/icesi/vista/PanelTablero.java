@@ -1,6 +1,5 @@
 package co.edu.icesi.vista;
 
-import co.edu.icesi.control.ControlJuego;
 import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
@@ -33,11 +32,6 @@ public class PanelTablero extends JPanel {
      * Interfaz principal que se encarga de visualizar toda la informacion
      */
     private InterfazBuscaMinas view;
-
-    /**
-     * NONE
-     */
-    private ControlJuego control;
 
     /**
      * Numero de botones a crear
@@ -86,7 +80,6 @@ public class PanelTablero extends JPanel {
 
     /**
      * Refresca los botones del tablero
-     *
      * @param tablero clase facade del mundo
      */
     public void refrescarBotones(Tablero tablero) {
