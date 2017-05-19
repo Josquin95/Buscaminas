@@ -92,13 +92,25 @@ public class PanelTablero extends JPanel {
     public void refrescarBotones(Tablero tablero) {
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
+                int etiqueta = tablero.getEtiqueta(i, j);
                 boolean destapada = tablero.isCeldaTapada(i, j);
                 int numero = tablero.ObternerValorCelda(i, j);
                 String valor = (numero == 0) ? " " : numero + "";
-                if (!destapada) {
+                if (!destapada && etiqueta == 0) {
                     btnCasillas[i][j].setEnabled(destapada);
                     btnCasillas[i][j].setText(valor);
                 }
+                if (etiqueta == 0 && destapada) {
+                    btnCasillas[i][j].setText("");
+                }
+                if (etiqueta == 1 && destapada) {
+                    btnCasillas[i][j].setText("B");
+                }
+                if (etiqueta == 2 && destapada) {
+                    btnCasillas[i][j].setText("I");
+                }
+
+
 
             }
         }

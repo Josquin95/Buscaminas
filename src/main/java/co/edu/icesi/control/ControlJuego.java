@@ -1,5 +1,6 @@
 package co.edu.icesi.control;
 
+import co.edu.icesi.modelo.Celda;
 import co.edu.icesi.modelo.Tablero;
 import co.edu.icesi.vista.BotonCuadricula;
 import co.edu.icesi.vista.InterfazBuscaMinas;
@@ -48,14 +49,29 @@ public class ControlJuego implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        BotonCuadricula boton = (BotonCuadricula) e.getComponent();
+        int posX = boton.getPosX();
+        int posY = boton.getPosY();
+        int etiqueta = model.getEtiqueta(posX, posY);
+
         if (e.getButton() == MouseEvent.BUTTON1) {
-            BotonCuadricula boton = (BotonCuadricula) e.getComponent();
-            int posX = boton.getPosX();
-            int posY = boton.getPosY();
-            model.destaparVacias(posX, posY);
-            model.destaparCelda(posX, posY);
-            view.update();
+            if (etiqueta == 0) {
+                model.destaparVacias(posX, posY);
+                model.destaparCelda(posX, posY);
+            }
         }
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            if (etiqueta == 0) {
+                model.setEtiqueta(Celda.BANDERA, posX, posY);
+            }
+            if (etiqueta == 1) {
+                model.setEtiqueta(Celda.INTERROGANTE, posX, posY);
+            }
+            if (etiqueta == 2) {
+                model.setEtiqueta(Celda.SIN_ETIQUETA, posX, posY);
+            }
+        }
+        view.update();
     }
 
     @Override
