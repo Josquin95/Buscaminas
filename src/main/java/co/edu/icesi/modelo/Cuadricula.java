@@ -5,7 +5,7 @@ package co.edu.icesi.modelo;
  * Universidad Icesi - 2017 - 05
  * Este es un proyecto academico para la clase de diseno de patrones.
  */
-public abstract class Cuadricula {
+public class Cuadricula implements ICuadricula, Cloneable {
 
     /**
      * Estandar de casillas para obtener el ratio de minas por cuadricula
@@ -21,6 +21,8 @@ public abstract class Cuadricula {
      * Matriz de celdas
      */
     protected CeldaBuilder[][] celdas;
+
+    protected CeldaBuilder[][] celdasEspectador;
 
     /**
      * Longitud de la matriz de celdas
@@ -43,12 +45,18 @@ public abstract class Cuadricula {
      */
     public void inicializarCeldas() {
         celdas = new CeldaBuilder[numeroCeldas][numeroCeldas];
+        celdasEspectador = new CeldaBuilder[numeroCeldas][numeroCeldas];
         for (int i = 0; i < celdas.length; i++) {
             for (int j = 0; j < celdas.length; j++) {
                 // Al inicializar por defecto todas son vacias
                 celdas[i][j] = new CeldaVacia();
                 celdas[i][j].crearCelda();
                 celdas[i][j].configurarCelda(0);
+
+                celdasEspectador[i][j] = new CeldaVacia();
+                celdasEspectador[i][j].crearCelda();
+                celdasEspectador[i][j].configurarCelda(0);
+
             }
         }
     }
@@ -73,10 +81,9 @@ public abstract class Cuadricula {
             celdaMina.configurarCelda(9);
 
             celdas[posX][posY] = celdaMina;
+            celdasEspectador[posX][posY] = celdaMina;
         }
     }
-
-
 
     /**
      * Metodo para imprimir la cuadricula por consola
@@ -86,7 +93,6 @@ public abstract class Cuadricula {
             for (int j = 0; j < numeroCeldas; j++) {
                 System.out.print(celdas[i][j].getCelda().getMinasAdyacentes() + " ");
             }
-            System.out.println();
         }
     }
 
@@ -111,10 +117,11 @@ public abstract class Cuadricula {
     public void fillGrid(CeldaBuilder[][] arr, int r, int c) {
         if (r >= 0 && r < numeroCeldas) {
             if (c >= 0 && c < numeroCeldas) {
-                int numeroMinas = obtenerCelda(r, c).getMinasAdyacentes();
+                int numeroMinas = obtenerCelda(false, r, c).getMinasAdyacentes();
                 boolean tapada = arr[r][c].getCelda().isTapada();
                 if (numeroMinas == 0 && tapada) {
                     arr[r][c].getCelda().setTapada(false);
+                    celdasEspectador[r][c].getCelda().setTapada(false);
                     fillGrid(arr, r + 1, c);
                     fillGrid(arr, r - 1, c);
                     fillGrid(arr, r, c + 1);
@@ -133,7 +140,7 @@ public abstract class Cuadricula {
      * @param i numero de la fila de la celda
      * @param j numero de la columna de la celda.
      */
-    protected void minasAdyacentes(int i, int j) {
+    public void minasAdyacentes(int i, int j) {
         int filas = numeroCeldas - 1;
         if (filas > 0) {
             int columnas = numeroCeldas - 1;
@@ -155,20 +162,15 @@ public abstract class Cuadricula {
     }
 
     /**
-     * Se encarga de analizar cuantas minas adyacentes hay por
-     * cada celda.
-     * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
-     * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
-     */
-    public abstract void inicializarNumeros();
-
-    /**
      * Se encarga obtener la celda
      * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
      * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
      */
 
-    public Celda obtenerCelda(int i, int j) {
+    public Celda obtenerCelda(boolean celda, int i, int j) {
+        if (celda) {
+            return celdasEspectador[i][j].getCelda();
+        }
         return celdas[i][j].getCelda();
     }
 
@@ -178,6 +180,33 @@ public abstract class Cuadricula {
 
     public CeldaBuilder[][] getCeldas() {
         return celdas;
+    }
+
+
+    /**
+     * Se encarga de analizar cuantas minas adyacentes hay por
+     * cada celda.
+     * <b> Precondicion: </b> se debe crear e incializar la matriz de celdas.
+     * <b> Poscondicion: </b> las celdas poseen su respectivo numero de minas adyacentes.
+     */
+    public void inicializarNumeros() {
+        for (int i = 0; i < numeroCeldas; i++) {
+            for (int j = 0; j < numeroCeldas; j++) {
+                CeldaBuilder celdaBuilder = celdas[i][j];
+                Celda celda = celdaBuilder.getCelda();
+                if (celda.isMina()) {
+                    minasAdyacentes(i, j);
+                }
+            }
+        }
+    }
+
+    public void destaparCelda(int x, int y) {
+        CeldaBuilder celdaBuilder = celdas[x][y];
+        celdaBuilder.getCelda().setTapada(false);
+
+        celdaBuilder = celdasEspectador[x][y];
+        celdaBuilder.getCelda().setTapada(false);
     }
 
 }

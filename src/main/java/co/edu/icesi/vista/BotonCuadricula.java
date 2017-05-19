@@ -78,6 +78,9 @@ public class BotonCuadricula extends JButton {
      */
     private ImageIcon image;
 
+    /**
+     * Tamanno de la matriz de botones
+     */
     private int size;
 
     //------------------------------------------
@@ -101,7 +104,8 @@ public class BotonCuadricula extends JButton {
     //-------------------------------------------
 
     /**
-     *
+     * Cambia la imagen de la celda
+     * @param valor con el valor de la celda
      */
     public void setImageJuego(int valor) {
         try {
@@ -147,20 +151,18 @@ public class BotonCuadricula extends JButton {
 
     }
 
+    /**
+     * @return posicion x del boton
+     */
     public int getPosX() {
         return posX;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
+    /**
+     * @return posicion y del boton
+     */
     public int getPosY() {
         return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
     }
 
 }

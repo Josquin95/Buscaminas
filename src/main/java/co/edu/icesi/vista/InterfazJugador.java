@@ -1,13 +1,21 @@
 package co.edu.icesi.vista;
 
-import co.edu.icesi.modelo.Tablero;
+import co.edu.icesi.modelo.ITablero;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 
+/**
+ * Autor Jose Luis Osorio Quintero
+ * Universidad Icesi - 2017 - 05
+ * Este es un proyecto academico para la clase de diseno de patrones.
+ */
 public class InterfazJugador extends InterfazBuscaMinas {
 
+    //---------------------------------------------------
+    // PROPIEDADES
+    //---------------------------------------------------
     /**
      * Ancho de la pantalla ss
      */
@@ -28,17 +36,21 @@ public class InterfazJugador extends InterfazBuscaMinas {
      */
     private PanelTablero panelTablero;
 
-    private Memento copiaModelo;
-    private JPanel panelSuperior;
+    /**
+     * Memento que se encarga de guardar el estado del juego
+     */
+    private Memento memento;
 
     /**
      * Panel que muestra el estado y las configuraciones iniciales del juego
      */
     private PanelEstado panelEstado;
 
-    private JPanel panelInferior;
-
+    /**
+     * Barra de Menu del Juego
+     */
     private JMenuBar barraMenu;
+
     /**
      * Menu para la personilización de la configuración
      */
@@ -51,21 +63,40 @@ public class InterfazJugador extends InterfazBuscaMinas {
      * item desde donde se podra realizar la configuración de la personalización
      */
     private JMenu itemConfiguracion;
+
+    /**
+     * Item que reinicia el juego
+     */
     private JMenuItem reiniciar;
+
+    /**
+     * Item del JMenu
+     */
     private JMenuItem itemPrimero;
+
+    /**
+     * Item del JMenu
+     */
     private JMenuItem itemSegundo;
+
+    /**
+     * Item del JMenu
+     */
     private JMenuItem itemTercero;
 
     /**
      * Clase facade del mundo que conecta con la interfaz
      */
-    private Tablero modelo;
+    private ITablero modelo;
 
+    //----------------------------------------------------------------------
+    // CONSTRUCTOR
+    //----------------------------------------------------------------------
 
     /**
      * Constructor panel que se encarga de construir la interfaz de jugador
      */
-    public InterfazJugador(Tablero modelo) {
+    public InterfazJugador(ITablero modelo, boolean espectador) {
         this.modelo = modelo;
         modelo.attach(this);
         setTitle(NOMBRE_APP);
@@ -77,29 +108,30 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.barraMenu = new JMenuBar();
         this.menuConfiguracion = new JMenu("Configuración aspecto");
         this.itemConfiguracion = new JMenu("Modificar");
-        this.menuJugabilidad= new JMenu("Jugabilidad");
-        this.reiniciar =new JMenuItem("Reiniciar");
+        this.menuJugabilidad = new JMenu("Jugabilidad");
+        this.reiniciar = new JMenuItem("Reiniciar");
         this.itemPrimero = new JMenuItem("Opción 1");
         this.itemSegundo = new JMenuItem("Opción 2");
         this.itemTercero = new JMenuItem("Opción 3");
 
-        construirPaneles(modelo);
+        construirPaneles(modelo, espectador);
     }
 
-    public void construirPaneles(Tablero modelo) {
-        panelSuperior = new JPanel();
-        panelSuperior.add(new JLabel("Panel Superior"));
-        add(panelSuperior, BorderLayout.NORTH);
+    /**
+     * Se encarga de inicializar los paneles
+     *
+     * @param modelo     clase facade de la logica
+     * @param espectador boolean para determinar el jugador o el espectador
+     */
+    public void construirPaneles(ITablero modelo, boolean espectador) {
 
-        panelTablero = new PanelTablero(modelo.getNumeroCeldas(), modelo);
-        copiaModelo=new Memento(panelTablero);
+        int numero = modelo.getNumeroCeldas();
+        panelTablero = new PanelTablero(numero, modelo, espectador);
+        memento = new Memento(panelTablero);
         add(panelTablero, BorderLayout.CENTER);
 
         panelEstado = new PanelEstado(this);
         add(panelEstado, BorderLayout.EAST);
-
-        panelInferior = new JPanel();
-        add(panelInferior, BorderLayout.SOUTH);
 
         this.barraMenu.add(this.menuConfiguracion);//Se agrega el menu de configuración a la barra
         this.barraMenu.add(this.menuJugabilidad);// Se agrega el menu de la jugabilidad a la barra
@@ -116,12 +148,18 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.barraMenu.setVisible(true);
     }
 
+    /**
+     * Agrega la accion al panel
+     * @param mouseListener Accion del mouse
+     */
     public void addAction(MouseListener mouseListener) {
         panelEstado.addActionListener(mouseListener);
         panelTablero.addAction(mouseListener);
     }
 
-
+    /**
+     * Actualiza los componentes de la interfaz
+     */
     @Override
     public void update() {
         panelTablero.refrescarBotones(modelo);
@@ -137,11 +175,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
     }
 
     public Memento getCopiaModelo() {
-        return copiaModelo;
-    }
-
-    public Tablero getModelo() {
-        return modelo;
+        return memento;
     }
 
     public PanelTablero getPanelTablero() {
@@ -152,9 +186,11 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.panelTablero = panelTablero;
     }
 
-    public JMenuItem getReiniciar() {return reiniciar;}
+    public JMenuItem getReiniciar() {
+        return reiniciar;
+    }
 
-    public void setModelo(Tablero modelo) {
-        this.modelo = modelo;
+    public ITablero getModelo() {
+        return modelo;
     }
 }

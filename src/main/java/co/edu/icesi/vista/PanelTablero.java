@@ -1,17 +1,21 @@
 package co.edu.icesi.vista;
 
-import co.edu.icesi.modelo.Tablero;
+import co.edu.icesi.modelo.ITablero;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseListener;
 
 /**
- * @Autor Jose Luis Osorio Quintero
+ * Autor: Jose Luis Osorio Quintero
  * Universidad Icesi - 2017 - 05
  * Este es un proyecto academico para la clase de diseno de patrones.
  */
 public class PanelTablero extends JPanel {
+
+    //------------------------------------------
+    // PROPIEDADES
+    //------------------------------------------
 
     /**
      * Largo del panel
@@ -39,24 +43,35 @@ public class PanelTablero extends JPanel {
     private int numeroBotones;
 
     /**
+     * Si la interface es un espectador o el jugador
+     */
+    private boolean espectador;
+
+    //--------------------------------------------------------------------------
+    // CONSTRUCTOR
+    //--------------------------------------------------------------------------
+    /**
      * Constructor para la clase panel tablero, se encarga
      * de crear los elementos graficos del panel.
      *
      * @param numeroBotones longitud de la matriz de botones.
      */
-    public PanelTablero(int numeroBotones, Tablero tablero) {
+    public PanelTablero(int numeroBotones, ITablero tablero, boolean espectador) {
+        this.espectador = espectador;
         this.numeroBotones = numeroBotones;
         setLayout(new GridLayout(numeroBotones, numeroBotones));
-        inicializarPanel(numeroBotones,tablero);
+        inicializarPanel(numeroBotones, tablero);
     }
 
+    //----------------------------------------------------------------------------
+    // SERVICIOS
+    //----------------------------------------------------------------------------
     /**
      * Se encarga de crear e inicialzar cada uno de los botones
      * del panel tablero para el juego buscaminas
-     *
      * @param numeroBotones longitud de la matriz de botones
      */
-    private void inicializarPanel(int numeroBotones, Tablero tablero) {
+    private void inicializarPanel(int numeroBotones, ITablero tablero) {
         setSize(LARGO, ANCHO);
         btnCasillas = new BotonCuadricula[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
@@ -69,25 +84,31 @@ public class PanelTablero extends JPanel {
         refrescarBotones(tablero);
     }
 
+    /**
+     * Agrega las acciones de los botones
+     *
+     * @param mouseListener accion del mouse
+     */
     public void addAction(MouseListener mouseListener) {
-        for (int i = 0; i < numeroBotones; i++) {
-            for (int j = 0; j < numeroBotones; j++) {
-                btnCasillas[i][j].addMouseListener(mouseListener);
+        if (!espectador) {
+            for (int i = 0; i < numeroBotones; i++) {
+                for (int j = 0; j < numeroBotones; j++) {
+                    btnCasillas[i][j].addMouseListener(mouseListener);
+                }
             }
         }
     }
-
 
     /**
      * Refresca los botones del tablero
      * @param tablero clase facade del mundo
      */
-    public void refrescarBotones(Tablero tablero) {
+    public void refrescarBotones(ITablero tablero) {
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
                 int etiqueta = tablero.getEtiqueta(i, j);
                 boolean destapada = tablero.isCeldaTapada(i, j);
-                int numero = tablero.ObternerValorCelda(i, j);
+                int numero = tablero.ObternerValorCelda(espectador, i, j);
                 String valor = (numero == 0) ? " " : numero + "";
                 if (!destapada && etiqueta == 0) {
                     btnCasillas[i][j].setEnabled(destapada);
@@ -109,7 +130,12 @@ public class PanelTablero extends JPanel {
         }
     }
 
-    public void refrescarTablero(Tablero tablero) {
+    /**
+     * Refresca el tablero tras un reinicio del juego
+     *
+     * @param tablero clase facade del juego
+     */
+    public void refrescarTablero(ITablero tablero) {
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
                 tablero.taparCeldas(i, j);

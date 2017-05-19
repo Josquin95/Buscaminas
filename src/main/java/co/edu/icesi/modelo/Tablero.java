@@ -4,6 +4,11 @@ import co.edu.icesi.vista.InterfazBuscaMinas;
 
 import java.util.ArrayList;
 
+/**
+ * Autor Jose Luis Osorio Quintero
+ * Universidad Icesi - 2017 - 05
+ * Este es un proyecto academico para la clase de diseno de patrones.
+ */
 public class Tablero implements ITablero {
 
     //---------------------------------------------
@@ -13,15 +18,21 @@ public class Tablero implements ITablero {
     /**
      * Cuadriculas del juego
      */
-    private Cuadricula cuadricula;
+    private ICuadricula cuadricula;
 
     /**
      * Contador del juego
      */
     private Contador contador;
 
+    /**
+     * Tiempo del juego
+     */
     private Tiempo tiempo;
 
+    /**
+     * ArrayList con las interfaces que dependen de la logica
+     */
     private ArrayList<InterfazBuscaMinas> observers;
 
     //---------------------------------------------
@@ -32,12 +43,10 @@ public class Tablero implements ITablero {
      * Constructor de la clase tablero, se encarga de
      * crear un tablero.
      */
-    public Tablero(boolean jugador) {
-        if (jugador) {
-            cuadricula = new CuadriculaJugador();
-        } else {
-            cuadricula = new CuadriculaEspectador();
-        }
+    public Tablero() {
+        cuadricula = new Cuadricula();
+        cuadricula.inicializarNumeros();
+
         observers = new ArrayList<>();
         contador = Contador.getInstancia();
         tiempo = Tiempo.getInstancia();
@@ -47,15 +56,6 @@ public class Tablero implements ITablero {
     //------------------------------------------------------
     // SERVICIOS
     //------------------------------------------------------
-
-    public Cuadricula getCuadricula() {
-        return cuadricula;
-    }
-
-
-    public Contador getContador() {
-        return contador;
-    }
 
     @Override
     public void attach(InterfazBuscaMinas observer) {
@@ -70,7 +70,7 @@ public class Tablero implements ITablero {
     @Override
     public boolean finJuego(int x, int y) {
         boolean fin = false;
-        Celda celda = cuadricula.obtenerCelda(x, y);
+        Celda celda = cuadricula.obtenerCelda(false, x, y);
         if (celda.getMinasAdyacentes() == 9 && celda.isTapada() == false) {
             fin = true;
             bloquearTablero();
@@ -84,6 +84,7 @@ public class Tablero implements ITablero {
         return fin;
     }
 
+    @Override
     public void bloquearTablero() {
         for (int i = 0; i < getNumeroCeldas(); i++) {
             for (int j = 0; j < getNumeroCeldas(); j++) {
@@ -92,11 +93,13 @@ public class Tablero implements ITablero {
         }
     }
 
+    @Override
     public void iniciarTiempo() {
         tiempo.setActivo(true);
         tiempo.run();
     }
 
+    @Override
     public String getTiempo() {
         return tiempo.getCronometro();
     }
@@ -113,34 +116,41 @@ public class Tablero implements ITablero {
 
     @Override
     public void setEtiqueta(int etiqueta, int x, int y) {
-        cuadricula.obtenerCelda(x, y).setEtiqueta(etiqueta);
-    }
-
-    public int getEtiqueta(int x, int y) {
-        return cuadricula.obtenerCelda(x, y).getEtiqueta();
-    }
-
-    public boolean isCeldaTapada(int x, int y) {
-        return cuadricula.obtenerCelda(x, y).isTapada();
-    }
-
-    public void destaparCelda(int x, int y) {
-        cuadricula.obtenerCelda(x, y).setTapada(false);
-    }
-
-    public void taparCeldas(int x, int y) {
-        cuadricula.obtenerCelda(x, y).setTapada(true);
+        cuadricula.obtenerCelda(false, x, y).setEtiqueta(etiqueta);
     }
 
     @Override
-    public int ObternerValorCelda(int i, int j) {
-        return cuadricula.obtenerCelda(i, j).getMinasAdyacentes();
+    public int getEtiqueta(int x, int y) {
+        return cuadricula.obtenerCelda(false, x, y).getEtiqueta();
     }
 
+    @Override
+    public boolean isCeldaTapada(int x, int y) {
+        return cuadricula.obtenerCelda(false, x, y).isTapada();
+    }
+
+    @Override
+    public void destaparCelda(int x, int y) {
+        cuadricula.destaparCelda(x, y);
+        cuadricula.destaparCelda(x, y);
+    }
+
+    @Override
+    public void taparCeldas(int x, int y) {
+        cuadricula.obtenerCelda(false, x, y).setTapada(true);
+    }
+
+    @Override
+    public int ObternerValorCelda(boolean celda, int i, int j) {
+        return cuadricula.obtenerCelda(celda, i, j).getMinasAdyacentes();
+    }
+
+    @Override
     public void notify(InterfazBuscaMinas observer) {
         observer.update();
     }
 
+    @Override
     public void notifyAllObservers() {
         for (InterfazBuscaMinas observer : observers) {
             observer.update();

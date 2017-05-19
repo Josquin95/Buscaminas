@@ -39,11 +39,16 @@ public class ControlJuego implements MouseListener {
     }
 
     public static void main(String args[]) {
-        Tablero model = new Tablero(true);
-        InterfazJugador view = new InterfazJugador(model);
+        Tablero model = new Tablero();
+        InterfazJugador view = new InterfazJugador(model, false);
+        InterfazJugador view2 = new InterfazJugador(model, true);
+        view2.setTitle("Espectador");
         model.attach(view);
+        model.attach(view2);
         ControlJuego control = new ControlJuego(view, model);
+        ControlJuego control2 = new ControlJuego(view2, model);
         control.iniciarVista();
+        control2.iniciarVista();
         model.iniciarTiempo();
     }
 

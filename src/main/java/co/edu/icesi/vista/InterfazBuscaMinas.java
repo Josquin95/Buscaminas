@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.MouseListener;
 
 /**
- * @Autor Jose Luis Osorio Quintero
+ * Autor Jose Luis Osorio Quintero
  * Universidad Icesi - 2017 - 05
  * Este es un proyecto academico para la clase de diseno de patrones.
  */
