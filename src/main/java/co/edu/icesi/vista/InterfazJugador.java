@@ -28,7 +28,7 @@ public class InterfazJugador extends InterfazBuscaMinas {
      */
     private PanelTablero panelTablero;
 
-
+    private Memento copiaModelo;
     private JPanel panelSuperior;
 
     /**
@@ -44,10 +44,14 @@ public class InterfazJugador extends InterfazBuscaMinas {
      */
     private JMenu menuConfiguracion;
     /**
+     * Menu para la personilización de la configuración
+     */
+    private JMenu menuJugabilidad;
+    /**
      * item desde donde se podra realizar la configuración de la personalización
      */
     private JMenu itemConfiguracion;
-
+    private JMenuItem reiniciar;
     private JMenuItem itemPrimero;
     private JMenuItem itemSegundo;
     private JMenuItem itemTercero;
@@ -72,6 +76,8 @@ public class InterfazJugador extends InterfazBuscaMinas {
         this.barraMenu = new JMenuBar();
         this.menuConfiguracion = new JMenu("Configuración aspecto");
         this.itemConfiguracion = new JMenu("Modificar");
+        this.menuJugabilidad= new JMenu("Jugabilidad");
+        this.reiniciar =new JMenuItem("Reiniciar");
         this.itemPrimero = new JMenuItem("Opción 1");
         this.itemSegundo = new JMenuItem("Opción 2");
         this.itemTercero = new JMenuItem("Opción 3");
@@ -79,12 +85,13 @@ public class InterfazJugador extends InterfazBuscaMinas {
         construirPaneles(modelo);
     }
 
-    private void construirPaneles(Tablero modelo) {
+    public void construirPaneles(Tablero modelo) {
         panelSuperior = new JPanel();
         panelSuperior.add(new JLabel("Panel Superior"));
         add(panelSuperior, BorderLayout.NORTH);
 
         panelTablero = new PanelTablero(modelo.getNumeroCeldas(), modelo);
+        copiaModelo=new Memento(panelTablero);
         add(panelTablero, BorderLayout.CENTER);
 
         panelEstado = new PanelEstado(this);
@@ -93,8 +100,11 @@ public class InterfazJugador extends InterfazBuscaMinas {
         panelInferior = new JPanel();
         add(panelInferior, BorderLayout.SOUTH);
 
-        this.barraMenu.add(this.menuConfiguracion);//Se agrega el menu a la barra
-        this.menuConfiguracion.add(itemConfiguracion);//Se agrega le item al
+        this.barraMenu.add(this.menuConfiguracion);//Se agrega el menu de configuración a la barra
+        this.barraMenu.add(this.menuJugabilidad);// Se agrega el menu de la jugabilidad a la barra
+        reiniciar.addActionListener(new MigestorDecorador(this));
+        this.menuJugabilidad.add(this.reiniciar);
+        this.menuConfiguracion.add(itemConfiguracion);//Se agrega le item al menu
         itemPrimero.addActionListener(new MigestorDecorador(this));//se agrega al gestor decorador
         this.itemConfiguracion.add(itemPrimero);//se agrega la primera opción
         itemSegundo.addActionListener(new MigestorDecorador(this));//se agrega al gestor decorador
@@ -124,4 +134,25 @@ public class InterfazJugador extends InterfazBuscaMinas {
         return itemSegundo;
     }
 
+    public Memento getCopiaModelo() {
+        return copiaModelo;
+    }
+
+    public Tablero getModelo() {
+        return modelo;
+    }
+
+    public PanelTablero getPanelTablero() {
+        return panelTablero;
+    }
+
+    public void setPanelTablero(PanelTablero panelTablero) {
+        this.panelTablero = panelTablero;
+    }
+
+    public JMenuItem getReiniciar() {return reiniciar;}
+
+    public void setModelo(Tablero modelo) {
+        this.modelo = modelo;
+    }
 }
