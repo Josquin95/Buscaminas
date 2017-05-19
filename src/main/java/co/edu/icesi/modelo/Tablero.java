@@ -107,6 +107,10 @@ public class Tablero implements ITablero {
         cuadricula.obtenerCelda(x, y).setTapada(false);
     }
 
+    public void setCuadricula(Cuadricula cuadricula) {
+        this.cuadricula = cuadricula;
+    }
+
     @Override
     public int ObternerValorCelda(int i, int j) {
         return cuadricula.obtenerCelda(i, j).getMinasAdyacentes();
