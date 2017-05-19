@@ -57,8 +57,16 @@ public class Tablero implements ITablero {
     }
 
     @Override
-    public void finJuego() {
-
+    public boolean finJuego(int x, int y) {
+        boolean fin = false;
+        Celda celda = cuadricula.obtenerCelda(x, y);
+        if (celda.getMinasAdyacentes() == 9 && celda.isTapada() == false) {
+            fin = true;
+        }
+        if (contador.getDestapadas() == (getNumeroCeldas() - cuadricula.ratioMinas())) {
+            fin = true;
+        }
+        return fin;
     }
 
     @Override

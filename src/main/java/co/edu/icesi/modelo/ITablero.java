@@ -31,7 +31,7 @@ public interface ITablero {
     /**
      * Termina el juego de buscaminas
      */
-    public void finJuego();
+    public boolean finJuego(int x, int y);
 
     /**
      * Inicio del juego

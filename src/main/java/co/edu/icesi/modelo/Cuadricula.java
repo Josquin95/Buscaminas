@@ -95,7 +95,7 @@ public abstract class Cuadricula {
      *
      * @return numero de minas que se deben poner en la cuadricula
      */
-    private int ratioMinas() {
+    public int ratioMinas() {
         double ratio = ((double) numeroCeldas / ESTANDAR_CASILLAS) * 100;
         return (int) Math.round(ratio);
     }
