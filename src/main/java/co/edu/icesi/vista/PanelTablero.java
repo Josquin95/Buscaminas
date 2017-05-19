@@ -5,7 +5,7 @@ import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 /**
  * @Autor Jose Luis Osorio Quintero
@@ -67,7 +67,7 @@ public class PanelTablero extends JPanel {
         btnCasillas = new JButton[numeroBotones][numeroBotones];
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
-                btnCasillas[i][j] = new JButton();
+                btnCasillas[i][j] = new BotonCuadricula(i, j);
                 btnCasillas[i][j].setActionCommand("CELDA[" + i + " " + j + "]");
                 add(btnCasillas[i][j]);
             }
@@ -75,13 +75,14 @@ public class PanelTablero extends JPanel {
         refrescarBotones(tablero);
     }
 
-    public void addActionListener(ActionListener actionListener) {
+    public void addAction(MouseListener mouseListener) {
         for (int i = 0; i < numeroBotones; i++) {
             for (int j = 0; j < numeroBotones; j++) {
-                btnCasillas[i][j].addActionListener(actionListener);
+                btnCasillas[i][j].addMouseListener(mouseListener);
             }
         }
     }
+
 
     /**
      * Refresca los botones del tablero

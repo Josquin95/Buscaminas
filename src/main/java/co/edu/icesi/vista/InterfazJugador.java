@@ -4,7 +4,7 @@ import co.edu.icesi.modelo.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 public class InterfazJugador extends InterfazBuscaMinas {
 
@@ -72,9 +72,9 @@ public class InterfazJugador extends InterfazBuscaMinas {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    public void addActionListener(ActionListener actionListener) {
-        panelEstado.addActionListener(actionListener);
-        panelTablero.addActionListener(actionListener);
+    public void addAction(MouseListener mouseListener) {
+        panelEstado.addActionListener(mouseListener);
+        panelTablero.addAction(mouseListener);
     }
 
 

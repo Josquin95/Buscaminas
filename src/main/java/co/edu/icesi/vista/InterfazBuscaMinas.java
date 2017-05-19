@@ -1,7 +1,7 @@
 package co.edu.icesi.vista;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 /**
  * @Autor Jose Luis Osorio Quintero
@@ -12,5 +12,5 @@ public abstract class InterfazBuscaMinas extends JFrame {
 
     public abstract void update();
 
-    public abstract void addActionListener(ActionListener actionListener);
+    public abstract void addAction(MouseListener mouseListener);
 }

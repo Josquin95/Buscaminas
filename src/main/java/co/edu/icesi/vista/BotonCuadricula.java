@@ -7,18 +7,29 @@ import javax.swing.*;
  */
 public class BotonCuadricula extends JButton {
 
-    public int valor;
+    public int posX;
 
-    public BotonCuadricula(int celda){
-        this.valor=celda;
+    public int posY;
+
+    public BotonCuadricula(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
     }
 
-    public void setValor(int celda) {
-        this.valor = celda;
+    public int getPosX() {
+        return posX;
     }
 
-    public int getValor() {
-        return valor;
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
     }
 
 }

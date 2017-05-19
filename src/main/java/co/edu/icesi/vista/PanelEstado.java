@@ -3,7 +3,7 @@ package co.edu.icesi.vista;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 /**
  * Created by Josquin on 11/05/2017.
@@ -180,9 +180,9 @@ public class PanelEstado extends JPanel {
         this.add(txtfiel);
     }
 
-    public void addActionListener(ActionListener actionListener) {
-        btnIniciar.addActionListener(actionListener);
-        btnCancelar.addActionListener(actionListener);
+    public void addActionListener(MouseListener mouseListener) {
+        btnIniciar.addMouseListener(mouseListener);
+        btnCancelar.addMouseListener(mouseListener);
     }
 
     public String getTxtTiempo() {

@@ -1,6 +1,6 @@
 package co.edu.icesi.vista;
 
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 public class PanelMarcador extends InterfazBuscaMinas {
 
@@ -14,7 +14,8 @@ public class PanelMarcador extends InterfazBuscaMinas {
     }
 
     @Override
-    public void addActionListener(ActionListener actionListener) {
+    public void addAction(MouseListener mouseListener) {
 
     }
+
 }
