@@ -98,9 +98,8 @@ public class PanelTablero extends JPanel {
                 String valor = (numero == 0) ? " " : numero + "";
                 if (!destapada && etiqueta == 0) {
                     btnCasillas[i][j].setEnabled(destapada);
-                    // btnCasillas[i][j].setBackground(Color.darkGray);
-                    btnCasillas[i][j].setText(valor);
-                    //btnCasillas[i][j].setImageJuego(numero);
+                    // btnCasillas[i][j].setText(valor);
+                    btnCasillas[i][j].setImageJuego(numero);
                 }
                 if (etiqueta == 0 && destapada) {
                     btnCasillas[i][j].setText("");

@@ -1,8 +1,6 @@
 package co.edu.icesi.vista;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by CarlosTorres on 18/05/2017.
@@ -13,52 +11,52 @@ public class BotonCuadricula extends JButton {
     /**
      * Constante de imagen uno
      */
-    public final static String UNO = "C:/Users/Josquin/Documents/BuscaMinas/Buscaminas/recursos/uno.png";
+    public final static String UNO = "src/main/resources/imagenes/uno.png";
 
     /**
      * Constante de imagen dos
      */
-    public final static String DOS = "Buscaminas/recursos/dos.png";
+    public final static String DOS = "src/main/resources/imagenes/dos.png";
 
     /**
      * Constante de imagen tres
      */
-    public final static String TRES = "//recursos/tres.png";
+    public final static String TRES = "src/main/resources/imagenes/tres.png";
 
     /**
      * Constante de imagen cuatro
      */
-    public final static String CUATRO = "//recursos/cuatro.png";
+    public final static String CUATRO = "src/main/resources/imagenes/cuatro.png";
 
     /**
      * Constante de imagen cinco
      */
-    public final static String CINCO = "imagenes/cinco.png";
+    public final static String CINCO = "src/main/resources/imagenes/cinco.png";
 
     /**
      * Constante de imagen seis
      */
-    public final static String SEIS = "imagenes/seis.png";
+    public final static String SEIS = "src/main/resources/imagenes/seis.png";
 
     /**
      * Constante de imagen siete
      */
-    public final static String SIETE = "imagenes/siete.png";
+    public final static String SIETE = "src/main/resources/imagenes/siete.png";
 
     /**
      * Constante de imagen ocho
      */
-    public final static String OCHO = "imagenes/ocho.png";
+    public final static String OCHO = "src/main/resources/imagenes/ocho.png";
 
     /**
      * Constante de imagen mine
      */
-    public final static String MINE = "imagenes/mine.png";
+    public final static String MINE = "src/main/resources/imagenes/mine.png";
 
     /**
      * Constante de imagen boom
      */
-    public final static String BOOM = "imagenes/mine.png"; //TODO aun no existe :C
+    public final static String BOOM = "src/main/resources/imagenes/mine.png"; //TODO aun no existe :C
 
     /**
      * Posicion x del boton
@@ -73,7 +71,7 @@ public class BotonCuadricula extends JButton {
     /**
      * Imagen que contiene el boton
      */
-    private Image image;
+    private ImageIcon image;
 
     //------------------------------------------
     // CONSTRUCTOR
@@ -129,8 +127,8 @@ public class BotonCuadricula extends JButton {
                     ruta = MINE;
                     break;
             }
-            Image img = ImageIO.read(getClass().getResource(ruta));
-            this.setIcon(new ImageIcon(img));
+            image = new ImageIcon(((new ImageIcon(ruta).getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH))));
+            this.setIcon(image);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
